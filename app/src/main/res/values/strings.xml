@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EmergencyButton</string>
+    <string-array name="list_menu_array">
+        <item>Tombol Darurat</item>
+        <item>Profil</item>
+        <item>Keluar</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+</resources>
