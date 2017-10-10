@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmergencyButton</string>
+    <string name="app_name">e_Pantau</string>
     <string-array name="list_menu_array">
         <item>Tombol Darurat</item>
         <item>Profil</item>

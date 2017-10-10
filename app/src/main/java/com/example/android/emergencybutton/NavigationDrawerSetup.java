@@ -17,7 +17,7 @@ import android.widget.ListView;
  * Created by Ahmada Yusril on 04/10/2017.
  */
 
-class NavigationDrawerSetup {
+class NavigationDrawerSetup extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private Toolbar mToolbar;
     private NavigationView mNavigationView;
@@ -73,6 +73,7 @@ class NavigationDrawerSetup {
             case R.id.item_profile:
                 break;
             case R.id.item_sign_out:
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
                 break;
         }
 

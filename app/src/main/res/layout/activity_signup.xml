@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:focusableInTouchMode="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo2"
+                android:layout_marginTop="70dp"
+                android:layout_marginBottom="35dp"/>
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:hint="NIK / Nomor KTP"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextNIK"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="250dp"
+                    android:src="@drawable/card" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="17dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:hint="Nama Lengkap"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextNama"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="250dp"
+                    android:src="@drawable/nama" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="17dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:hint="Nomor Telepon"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextTelp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="14dp"
+                    android:src="@drawable/ic_call_black_24dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="17dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:hint="Alamat"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextAlamat"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="250dp"
+                    android:src="@drawable/alamat"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="17dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:hint="Username"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextUsername"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="14dp"
+                    android:src="@drawable/ic_person_black_24dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:background="#f8f8f9"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="17dp">
+
+                <EditText
+                    android:layout_width="300dp"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:hint="Password"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextPassword"
+                    android:inputType="textPassword"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="250dp"
+                    android:src="@drawable/password"
+                    android:tint="@color/colorIcon"/>
+
+            </RelativeLayout>
+
+            <Button
+                android:layout_width="300dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+                android:text="Signup"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorMenu"
+                android:background="@drawable/button"
+                android:textSize="20dp"
+                android:fontFamily="Times New Roman"
+                android:textStyle="bold"
+                android:textColor="#ffffff"
+                android:id="@+id/buttonRegister"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Sudah punya akun ?"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Masuk disini"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="4dp"
+                    android:id="@+id/textViewLogin"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+</RelativeLayout>
