@@ -1,102 +1,181 @@
 package com.example.android.emergencybutton;
 
-import android.Manifest;
-import android.app.Fragment;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Build;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
+import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-
 public class MainActivity extends AppCompatActivity {
-    private static final int MY_PERMISSION_REQUEST_CODE = 17;
-    private FusedLocationProviderClient mFusedLocationProviderClient;
-    private Button mEmergency;
-    private NavigationDrawerSetup drawerSetup;
+    private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
-    private String[] mMenuTitles;
+    Toolbar toolbar;
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
+        }
+        mTitle = mDrawerTitle = getTitle();
+        mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_lyt);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        drawerSetup = new NavigationDrawerSetup();
-        drawerSetup.configureDrawer(this);
-        //getActionBar().setTitle("Tombol Darurat");
+        setupToolbar();
+        //toolbar.setLogo(android.R.drawable.ic_menu_help);
 
-        // Create an instance of GoogleAPIClient.
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        mEmergency = (Button) findViewById(R.id.b_emergency);
-        mEmergency.setOnClickListener(new View.OnClickListener() {
+        DataModel[] drawerItem = new DataModel[6];
+
+        drawerItem[0] = new DataModel(R.drawable.menu_tombol, "Tombol Darurat");
+        drawerItem[1] = new DataModel(R.drawable.menu_lapor, "Lapor");
+        drawerItem[2] = new DataModel(R.drawable.menu_kejadian, "Kejadian Terkini");
+        drawerItem[3] = new DataModel(R.drawable.menu_daerahrawan, "Daerah Rawan");
+        drawerItem[4] = new DataModel(R.drawable.menu_chart, "Statistika");
+        drawerItem[5] = new DataModel(R.drawable.menu_logout, "Logout");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.list_view_item_row, drawerItem);
+        mDrawerList.setAdapter(adapter);
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_lyt);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        setupDrawerToggle();
+
+        findViewById(R.id.profileLayout).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                getLocation();
+                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
+
+
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean result = drawerSetup.onOptionsItemSelected(item);
-        if (!result) return super.onOptionsItemSelected(item);
-        else return result;
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
+
     }
 
-    protected void getLocation(){
-        Log.d("GetLocation: ", "Success");
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            Log.d("CheckPermission: ", "Success");
-            mFusedLocationProviderClient.getLastLocation().addOnSuccessListener(MainActivity.this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (null != location) {
-                        onLocationChanged(location);
-                        Log.d("CheckLocation: ", "Success");
-                    } else {
-                        Log.d("CheckLocation: ", "Failed");
-                    }
-                }
-            });
-            mFusedLocationProviderClient.getLastLocation().addOnFailureListener(this, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("CheckLocation: ", "Failed");
-                }
-            });
+    private void selectItem(int position) {
+
+        Fragment fragment = null;
+
+        switch (position) {
+            case 0:
+                fragment = new FragmentTombolDarurat();
+                break;
+            case 1:
+                fragment = new FragmentTwo();
+                break;
+            case 2:
+                fragment = new FragmentTwo();
+                break;
+            case 3:
+                fragment = new FragmentTwo();
+                break;
+            case 4:
+                fragment = new FragmentTwo();
+                break;
+            case 5:
+                SharedPrefManager.getInstance(getApplicationContext()).logout();
+                finish();
+                //fragment = new FragmentThree();
+                break;
+
+            default:
+                break;
+        }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+            mDrawerList.setItemChecked(position, true);
+            mDrawerList.setSelection(position);
+            setTitle(mNavigationDrawerItemTitles[position]);
+            mDrawerLayout.closeDrawers();
+
         } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                String[] permissionWeNeed = new String[]{ Manifest.permission.ACCESS_FINE_LOCATION };
-                requestPermissions(permissionWeNeed, MY_PERMISSION_REQUEST_CODE);
-            }
-            Log.d("CheckPermission: ", "Failed");
+            Log.e("MainActivity", "Error in creating fragment");
         }
     }
 
-    protected void onLocationChanged(Location location){
-        String msg = "Updated Location: " +
-                Double.toString(location.getLatitude()) + "," +
-                Double.toString(location.getLongitude());
-        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-        Log.d("LocationChanged: ", msg);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+            Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
-    public static class MenuFragment extends Fragment{
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//
+//        if (mDrawerToggle.onOptionsItemSelected(item)) {
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
+    @Override
+    public void setTitle(CharSequence title) {
+        mTitle = title;
+        getSupportActionBar().setTitle(mTitle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    void setupDrawerToggle(){
+        mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name, R.string.app_name);
+        //This is necessary to change the icon of the Drawer Toggle upon state change.
+        mDrawerToggle.syncState();
+    }
+
+    public boolean onCreatOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

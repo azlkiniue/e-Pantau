@@ -11,7 +11,7 @@ import android.content.SharedPreferences;
 public class SharedPrefManager {
 
     //the constants
-    private static final String SHARED_PREF_NAME = "simplifiedcodingsharedpref";
+    private static final String SHARED_PREF_NAME = "ePantauSharedPref";
     private static final String KEY_USERNAME = "keyusername";
     private static final String KEY_NAMA = "keynama";
     private static final String KEY_NIK = "keynik";
@@ -19,6 +19,12 @@ public class SharedPrefManager {
     private static final String KEY_TELEPON = "keytelepon";
     //private static final String KEY_FOTO = "keyfoto";
     private static final String KEY_ID = "keyid";
+    private static final String KEY_ID_TOMBOL = "keyidtombol";
+    private static final String KEY_TOMBOL_TELEPON = "keytomboltelepon";
+    private static final String KEY_LONGITUDE = "keylongitude";
+    private static final String KEY_LATITUDE = "keylatitude";
+    private static final String KEY_WAKTU = "keywaktu";
+
 
     private static SharedPrefManager mInstance;
     private static Context mCtx;
@@ -46,13 +52,39 @@ public class SharedPrefManager {
         editor.putString(KEY_TELEPON, user.getTelepon());
         editor.putString(KEY_USERNAME, user.getUsername());
        // editor.putString(KEY_FOTO, user.getFoto());
-        editor.apply();
+        //editor.apply();
+        editor.commit();
     }
 
     //this method will checker whether user is already logged in or not
     public boolean isLoggedIn() {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(KEY_USERNAME, null) != null;
+    }
+
+    public void setLokasi(LokasiKejadian lokasi) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putInt(KEY_ID_TOMBOL, lokasi.getId_tombol());
+        editor.putString(KEY_LONGITUDE, lokasi.getLogitude());
+        editor.putString(KEY_LATITUDE, lokasi.getLatitude());
+        editor.putString(KEY_TOMBOL_TELEPON, lokasi.getTelp());
+        editor.putString(KEY_WAKTU, lokasi.getWaktu());
+        // editor.putString(KEY_FOTO, user.getFoto());
+        //editor.apply();
+        editor.commit();
+    }
+
+    public LokasiKejadian getLokasi(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new LokasiKejadian(
+//                sharedPreferences.getInt(KEY_ID_TOMBOL, -1),
+                sharedPreferences.getString(KEY_LONGITUDE, null),
+                sharedPreferences.getString(KEY_LATITUDE, null),
+                sharedPreferences.getString(KEY_TOMBOL_TELEPON, null),
+                sharedPreferences.getString(KEY_WAKTU, null)
+                //sharedPreferences.getString(KEY_FOTO, null)
+        );
     }
 
     //this method will give the logged in user

@@ -34,10 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
-            //finish();
-            startActivity(new Intent(this, ProfileActivity.class));
-        }
+
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
@@ -82,7 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                     userLogin(editTextUsername.getText().toString(), editTextPassword.getText().toString());
                 }
 
-                userLogin(editTextUsername.getText().toString(), editTextPassword.getText().toString());
             }
         });
 
@@ -132,46 +128,26 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-//                                JSONObject userJson = obj.getJSONObject("user");
+                                JSONObject userJson = obj.getJSONObject("user");
 //
 //                                //creating a new user object
-//                                User user = new User(
-//                                        userJson.getInt("id"),
-//                                        userJson.getString("nik"),
-//                                        userJson.getString("nama"),
-//                                        userJson.getString("alamat"),
-//                                        userJson.getString("telepon"),
-//                                        userJson.getString("username")
-//                                );
+                                User user = new User(
+                                        userJson.getInt("id"),
+                                        userJson.getString("nik"),
+                                        userJson.getString("nama"),
+                                        userJson.getString("alamat"),
+                                        userJson.getString("telepon"),
+                                        userJson.getString("username")
+                                );
 //
 //                                //storing the user in shared preferences
-//                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
+                                SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
                                 //starting the profile activity
                                 //finish();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
                             } else {
-
-//                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(LoginActivity.this);
-//                                alertDialogBuilder.setMessage("Are you sure, You wanted to make decision");
-//                                        alertDialogBuilder.setPositiveButton("yes",
-//                                                new DialogInterface.OnClickListener() {
-//                                                    @Override
-//                                                    public void onClick(DialogInterface arg0, int arg1) {
-//                                                        Toast.makeText(LoginActivity.this,"You clicked yes button",Toast.LENGTH_LONG).show();
-//                                                    }
-//                                                });
-//
-//                                alertDialogBuilder.setNegativeButton("No",new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        finish();
-//                                    }
-//                                });
-//
-//                                AlertDialog alertDialog = alertDialogBuilder.create();
-//                                alertDialog.show();
-
                                 Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {

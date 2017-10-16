@@ -3,52 +3,50 @@ package com.example.android.emergencybutton;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView textViewNIK, textViewNama, textViewAlamat, textViewTelp, textViewId, textViewUsername;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        setupToolbar();
 
-        //if the user is not logged in
-        //starting the login activity
-        if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
-            finish();
-            startActivity(new Intent(this, LoginActivity.class));
-        }
-
-
-        textViewId = (TextView) findViewById(R.id.textViewId);
-        textViewUsername = (TextView) findViewById(R.id.textViewUsername);
-        textViewNIK = (TextView) findViewById(R.id.textViewNIK);
-        textViewNama = (TextView) findViewById(R.id.textViewNama);
-        textViewAlamat = (TextView) findViewById(R.id.textViewAlamat);
-        textViewTelp = (TextView) findViewById(R.id.textViewTelepon);
-
-
-        //getting the current user
-        User user = SharedPrefManager.getInstance(this).getUser();
-
-        //setting the values to the textviews
-        textViewId.setText(String.valueOf(user.getId()));
-        textViewNIK.setText(String.valueOf(user.getNik()));
-        textViewNama.setText(user.getNama());
-        textViewAlamat.setText(user.getAlamat());
-        textViewTelp.setText(user.getTelepon());
-        textViewUsername.setText(user.getUsername());
-        //when the user presses logout button
-        //calling the logout method
-        findViewById(R.id.buttonLogout).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                finish();
-                SharedPrefManager.getInstance(getApplicationContext()).logout();
+                startActivity(new Intent(ProfileActivity.this, DetailKejadianActivity.class));
             }
         });
+    }
+    void setupToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+            Toast.makeText(ProfileActivity.this, "Save picture", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

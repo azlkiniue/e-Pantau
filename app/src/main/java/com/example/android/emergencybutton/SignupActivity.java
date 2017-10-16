@@ -29,21 +29,6 @@ public class SignupActivity extends AppCompatActivity {
 
     EditText editTextUsername,editTextPassword, editTextNIK, editTextNama, editTextAlamat, editTextTelp ;
     ProgressBar progressBar;
-    private Button buttonLoad;
-    private ImageView imageView;
-
-    //Image request code
-    private int PICK_IMAGE_REQUEST = 1;
-
-    //storage permission code
-    private static final int STORAGE_PERMISSION_CODE = 123;
-
-    //Bitmap to get image from gallery
-    private Bitmap bitmap;
-
-    //Uri to store the image uri
-    private Uri filePath;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +65,8 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //if user pressed on login
                 //we will open the login screen
-                finish();
                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
@@ -226,7 +211,8 @@ public class SignupActivity extends AppCompatActivity {
 
                                 //starting the profile activity
                                 //finish();
-                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                             }

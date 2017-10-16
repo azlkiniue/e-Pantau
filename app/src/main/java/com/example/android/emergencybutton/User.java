@@ -9,6 +9,8 @@ public class User {
     private int id;
     private String nik, nama, alamat, telepon, username;
 
+    public User() {
+    }
 
     public User(int id, String nik, String nama, String alamat, String telepon, String username) {
         this.id = id;
@@ -44,6 +46,17 @@ public class User {
         return username;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nik='" + nik + '\'' +
+                ", nama='" + nama + '\'' +
+                ", alamat='" + alamat + '\'' +
+                ", telepon='" + telepon + '\'' +
+                ", username='" + username + '\'' +
+                '}';
+    }
 //    public String getFoto() {
 //        return foto;
 //    }

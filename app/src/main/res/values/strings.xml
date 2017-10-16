@@ -1,10 +1,17 @@
-<resources>
-    <string name="app_name">e_Pantau</string>
-    <string-array name="list_menu_array">
-        <item>Tombol Darurat</item>
-        <item>Profil</item>
-        <item>Keluar</item>
-    </string-array>
+<resources xmlns:android="http://schemas.android.com/tools">
+    <string name="app_name">e_Pantau : Tombol Darurat</string>
+    <string name="name_epantau">e_Pantau : Tombol Darurat</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="navigation_drawer_items_array">
+        <item>e_Pantau : Tombol Darurat</item>
+        <item>e-Pantau : Lapor</item>
+        <item>e-Pantau : Kejadian Terkini</item>
+        <item>e-Pantau : Daerah Rawan</item>
+        <item>e-Pantau : Statistika</item>
+        <item>Logout</item>
+    </string-array>
+
 </resources>
