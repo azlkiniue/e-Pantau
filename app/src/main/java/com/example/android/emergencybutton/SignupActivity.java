@@ -212,7 +212,7 @@ public class SignupActivity extends AppCompatActivity {
                                 //starting the profile activity
                                 //finish();
                                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                                finish();
+//                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                             }

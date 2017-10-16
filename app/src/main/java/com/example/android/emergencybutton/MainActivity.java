@@ -13,7 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mNavigationDrawerItemTitles;
@@ -36,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_lyt);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        User user = SharedPrefManager.getInstance(this).getUser();
+        TextView textViewNameNavigation = (TextView) findViewById(R.id.nameNavigation);
 
         setupToolbar();
         //toolbar.setLogo(android.R.drawable.ic_menu_help);
@@ -64,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
+
+        textViewNameNavigation.setText(user.getNama());
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
