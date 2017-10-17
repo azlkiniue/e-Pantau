@@ -40,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         //if the user is already logged in we will directly start the profile activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
             finish();
-            startActivity(new Intent(this, ProfileActivity.class));
+            startActivity(new Intent(this, FragmentTombolDarurat.class));
             return;
         }
 
@@ -203,7 +203,8 @@ public class SignupActivity extends AppCompatActivity {
                                         userJson.getString("nama"),
                                         userJson.getString("alamat"),
                                         userJson.getString("telepon"),
-                                        userJson.getString("username")
+                                        userJson.getString("username"),
+                                        userJson.getString("foto")
                                 );
 
                                 //storing the user in shared preferences

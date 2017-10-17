@@ -34,7 +34,12 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
+        //if the user is already logged in we will directly start the profile activity
+        if (SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            return;
+        }
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
@@ -137,7 +142,8 @@ public class LoginActivity extends AppCompatActivity {
                                         userJson.getString("nama"),
                                         userJson.getString("alamat"),
                                         userJson.getString("telepon"),
-                                        userJson.getString("username")
+                                        userJson.getString("username"),
+                                        userJson.getString("foto")
                                 );
 //
 //                                //storing the user in shared preferences

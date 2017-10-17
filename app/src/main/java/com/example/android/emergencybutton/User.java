@@ -7,19 +7,19 @@ package com.example.android.emergencybutton;
 public class User {
 
     private int id;
-    private String nik, nama, alamat, telepon, username;
+    private String nik, nama, alamat, telepon, username, foto;
 
     public User() {
     }
 
-    public User(int id, String nik, String nama, String alamat, String telepon, String username) {
+    public User(int id, String nik, String nama, String alamat, String telepon, String username, String foto) {
         this.id = id;
         this.nik = nik;
         this.nama = nama;
         this.alamat = alamat;
         this.telepon = telepon;
         this.username = username;
-        //this.foto = foto;
+        this.foto = foto;
     }
 
     public int getId() {
@@ -46,6 +46,10 @@ public class User {
         return username;
     }
 
+    public String getFoto() {
+        return foto;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -55,9 +59,7 @@ public class User {
                 ", alamat='" + alamat + '\'' +
                 ", telepon='" + telepon + '\'' +
                 ", username='" + username + '\'' +
+                ", foto='" + foto + '\'' +
                 '}';
     }
-//    public String getFoto() {
-//        return foto;
-//    }
 }

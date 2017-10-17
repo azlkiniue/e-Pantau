@@ -26,9 +26,13 @@ dependencies {
     })
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.volley:volley:1.0.0'
-    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:mediarouter-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.android.gms:play-services:11.4.2'
     compile 'com.android.support:design:26.+'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'net.gotev:uploadservice:2.1'
     testCompile 'junit:junit:4.12'
 }

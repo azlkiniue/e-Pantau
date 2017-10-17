@@ -17,7 +17,7 @@ public class SharedPrefManager {
     private static final String KEY_NIK = "keynik";
     private static final String KEY_ALAMAT = "keyalamat";
     private static final String KEY_TELEPON = "keytelepon";
-    //private static final String KEY_FOTO = "keyfoto";
+    private static final String KEY_FOTO = "keyfoto";
     private static final String KEY_ID = "keyid";
     private static final String KEY_ID_TOMBOL = "keyidtombol";
     private static final String KEY_TOMBOL_TELEPON = "keytomboltelepon";
@@ -51,7 +51,7 @@ public class SharedPrefManager {
         editor.putString(KEY_ALAMAT, user.getAlamat());
         editor.putString(KEY_TELEPON, user.getTelepon());
         editor.putString(KEY_USERNAME, user.getUsername());
-       // editor.putString(KEY_FOTO, user.getFoto());
+        editor.putString(KEY_FOTO, user.getFoto());
         //editor.apply();
         editor.commit();
     }
@@ -96,8 +96,8 @@ public class SharedPrefManager {
                 sharedPreferences.getString(KEY_NAMA, null),
                 sharedPreferences.getString(KEY_ALAMAT, null),
                 sharedPreferences.getString(KEY_TELEPON, null),
-                sharedPreferences.getString(KEY_USERNAME, null)
-                //sharedPreferences.getString(KEY_FOTO, null)
+                sharedPreferences.getString(KEY_USERNAME, null),
+                sharedPreferences.getString(KEY_FOTO, null)
         );
     }
 

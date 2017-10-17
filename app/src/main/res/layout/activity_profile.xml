@@ -32,16 +32,15 @@
                     android:layout_height="160dp"
                     android:scaleType="centerCrop" />
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/user_profile_photo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:layout_marginLeft="128dp"
-                    android:layout_marginTop="105dp"
-                    android:background="@drawable/profile_circular_border_imageview"
+                    android:layout_marginTop="90dp"
+                    android:background="@drawable/default_photo"
                     android:elevation="5dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_child_care_black_24dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true" />
 
@@ -60,8 +59,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="80dp"
-                        android:layout_marginLeft="100dp"
-                        android:text="Habibatul Jalilah"
+                        android:layout_gravity="center"
                         android:textColor="#fff"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -69,13 +67,14 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/buttonEditProfile"
+                        android:layout_gravity="center">
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@drawable/ic_create_black_24dp"
                             android:layout_marginTop="10dp"
-                            android:layout_marginLeft="130dp"
                             />
                         <TextView
                             android:id="@+id/user_profile_short_bio"
@@ -150,7 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="7dp"
-                android:src="@drawable/bismillah"
+                android:src="@drawable/begal"
                 />
 
             <LinearLayout
@@ -234,7 +233,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="7dp"
-                android:src="@drawable/bismillah"
+                android:src="@drawable/begal"
                 />
 
             <LinearLayout

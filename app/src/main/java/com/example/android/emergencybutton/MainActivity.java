@@ -1,6 +1,12 @@
 package com.example.android.emergencybutton;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
@@ -12,9 +18,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+import com.bumptech.glide.signature.StringSignature;
 
 import org.w3c.dom.Text;
 
@@ -42,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         User user = SharedPrefManager.getInstance(this).getUser();
         TextView textViewNameNavigation = (TextView) findViewById(R.id.nameNavigation);
+        ImageView imageViewFoto = (ImageView) findViewById(R.id.menuProfile);
 
         setupToolbar();
         //toolbar.setLogo(android.R.drawable.ic_menu_help);
@@ -73,6 +86,18 @@ public class MainActivity extends AppCompatActivity {
 
         textViewNameNavigation.setText(user.getNama());
 
+
+
+        String gambar = user.getFoto();
+
+        Log.d("gambarnya", String.valueOf(user.getNama()));
+
+        Glide.with(MainActivity.this)
+                .load(Uri.parse(gambar)) // add your image url
+                .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                .transform(new CircleTransform(MainActivity.this)) // applying the image transformer
+                .into(imageViewFoto);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
 
@@ -97,16 +122,16 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new FragmentTombolDarurat();
                 break;
             case 1:
-                fragment = new FragmentTwo();
+                fragment = new LaporActivity();
                 break;
             case 2:
-                fragment = new FragmentTwo();
+                fragment = new KejadianTerkiniActivity();
                 break;
             case 3:
-                fragment = new FragmentTwo();
+                fragment = new DaerahRawanActivity();
                 break;
             case 4:
-                fragment = new FragmentTwo();
+                fragment = new StatistikaActivity();
                 break;
             case 5:
                 SharedPrefManager.getInstance(getApplicationContext()).logout();
@@ -186,4 +211,45 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+
+    public class CircleTransform extends BitmapTransformation {
+        public CircleTransform(Context context) {
+            super(context);
+        }
+
+        @Override
+        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+            return circleCrop(pool, toTransform);
+        }
+
+        private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
+            if (source == null) return null;
+
+            int size = Math.min(source.getWidth(), source.getHeight());
+            int x = (source.getWidth() - size) / 2;
+            int y = (source.getHeight() - size) / 2;
+
+            // TODO this could be acquired from the pool too
+            Bitmap squared = Bitmap.createBitmap(source, x, y, size, size);
+
+            Bitmap result = pool.get(size, size, Bitmap.Config.ARGB_8888);
+            if (result == null) {
+                result = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+            }
+
+            Canvas canvas = new Canvas(result);
+            Paint paint = new Paint();
+            paint.setShader(new BitmapShader(squared, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
+            paint.setAntiAlias(true);
+            float r = size / 2f;
+            canvas.drawCircle(r, r, r, paint);
+            return result;
+        }
+
+        @Override public String getId() {
+            return getClass().getName();
+        }
+    }
+
 }

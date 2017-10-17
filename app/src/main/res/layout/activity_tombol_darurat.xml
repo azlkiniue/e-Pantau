@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.example.android.emergencybutton.FragmentTombolDarurat">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="368dp"
@@ -21,31 +21,33 @@
             android:layout_marginTop="75dp"
             android:layout_width="300dp"
             android:layout_height="300dp"
-            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
             android:clickable="true"
             android:background="@drawable/button_emergency"/>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal"
-            android:layout_marginLeft="20dp">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="10dp">
 
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_gravity="end"
-                android:src="@drawable/info"/>
+                android:src="@drawable/info" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="4dp"
-                android:text="Click button selama 2 detik jika terjadi bahaya"
+                android:gravity="center"
+                android:text="Tekan tombol selama 2 detik jika terjadi bahaya !"
                 android:textColor="@color/colorIcon"
-                android:textStyle=""/>
-        </LinearLayout>
+                android:textStyle="bold" />
 
-    </LinearLayout>
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
