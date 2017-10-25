@@ -8,12 +8,16 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,36 +27,48 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.signature.StringSignature;
 
-public class ProfileActivity extends AppCompatActivity {
+/**
+ * Created by ASUS on 10/17/2017.
+ */
+
+public class FragmentProfile extends Fragment {
+    private DrawerLayout mDrawerLayout;
+
+    public static Fragment newInstance(Context context) {
+        FragmentTombolDarurat f = new FragmentTombolDarurat();
+
+        return f;
+    }
 
     Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        setupToolbar();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_profile, null);
 
-        User user = SharedPrefManager.getInstance(this).getUser();
+        User user = SharedPrefManager.getInstance(getActivity()).getUser();
+        mDrawerLayout = (DrawerLayout) root.findViewById(R.id.drawer_lyt);
 
-        TextView nama = (TextView) findViewById(R.id.user_profile_name);
-        ImageView imageProfile = (ImageView) findViewById(R.id.user_profile_photo);
+        TextView nama = (TextView) root.findViewById(R.id.user_profile_name);
+        ImageView imageProfile = (ImageView) root.findViewById(R.id.user_profile_photo);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTop);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
+        root.findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, DetailKejadianActivity.class));
+                startActivity(new Intent(getActivity(), DetailKejadianActivity.class));
             }
         });
 
-        findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
+        root.findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this, EditActivity.class));
+//                FragmentProfile profileFragment = new FragmentProfile();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
+//                //setTitle("e_Pantau : Profile");
+//                mDrawerLayout.closeDrawers();
+
+                startActivity(new Intent(getActivity(), EditActivity.class));
             }
         });
 
@@ -62,33 +78,13 @@ public class ProfileActivity extends AppCompatActivity {
 
         Log.d("user", q);
         Log.d("gambarnya", String.valueOf(user.getFoto()));
-        Glide.with(ProfileActivity.this)
+        Glide.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
                 .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
-                .transform(new CircleTransform(ProfileActivity.this)) // applying the image transformer
+                .transform(new CircleTransform(getActivity())) // applying the image transformer
                 .into(imageProfile);
-    }
-    void setupToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_help) {
-            Toast.makeText(ProfileActivity.this, "Save picture", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return root;
     }
 
     public class CircleTransform extends BitmapTransformation {

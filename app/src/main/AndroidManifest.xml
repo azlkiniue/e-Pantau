@@ -4,9 +4,8 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:allowBackup="true"
@@ -24,7 +23,8 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".ProfileActivity"
+        <activity
+            android:name=".ProfileActivity"
             android:label="e_Pantau : Profile"
             android:parentActivityName=".MainActivity">
             <meta-data
@@ -32,24 +32,28 @@
                 android:value=".MainActivity" />
         </activity>
         <activity android:name=".MainActivity" />
+
         <fragment android:name=".FragmentTombolDarurat" />
+        <fragment android:name=".FragmentProfile" />
         <fragment android:name=".FragmentTwo" />
         <fragment android:name=".FragmentThree" />
+
         <activity android:name=".GetPhoneNumberActivity" />
-        <activity android:name=".DetailKejadianActivity"
+        <activity
+            android:name=".DetailKejadianActivity"
             android:label="e_Pantau : Detail Kejadian"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".EditActivity"
+        <activity
+            android:name=".EditActivity"
             android:label="e_Pantau : Edit Profile"
-            android:parentActivityName=".MainActivity" >
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity">
-            </meta-data>
+            android:parentActivityName=".ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"></meta-data>
         </activity>
     </application>
 

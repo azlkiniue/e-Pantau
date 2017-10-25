@@ -80,7 +80,12 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.profileLayout).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                FragmentProfile profileFragment = new FragmentProfile();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
+                //setTitle("e_Pantau : Profile");
+                mDrawerLayout.closeDrawers();
+//                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
             }
         });
 
@@ -167,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_help) {
-            Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
+            //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

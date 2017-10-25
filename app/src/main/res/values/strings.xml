@@ -1,5 +1,5 @@
 <resources xmlns:android="http://schemas.android.com/tools">
-    <string name="app_name">e_Pantau : Tombol Darurat</string>
+    <string name="app_name">e_Pantau</string>
     <string name="name_epantau">e_Pantau : Tombol Darurat</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>

@@ -106,7 +106,7 @@ public class FragmentTombolDarurat extends Fragment {
 
                             //if no error in response
                             if (!obj.getBoolean("error")) {
-                                Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
                                 JSONObject lokasiJson = obj.getJSONObject("lokasi");

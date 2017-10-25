@@ -38,7 +38,6 @@
                     android:layout_height="150dp"
                     android:layout_marginLeft="128dp"
                     android:layout_marginTop="90dp"
-                    android:background="@drawable/default_photo"
                     android:elevation="5dp"
                     android:scaleType="centerCrop"
                     android:layout_alignParentTop="true"
