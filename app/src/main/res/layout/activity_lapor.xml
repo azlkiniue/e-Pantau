@@ -1,208 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:layout_below="@+id/profile_layout"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
-        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/profile_circular_border_imageview"
-                android:elevation="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_child_care_black_24dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="270dp"
-                    android:layout_height="35dp"
-                    android:layout_margin="5dp"
-                    android:layout_marginLeft="60dp"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:padding="8dp"
-                    android:textStyle="bold"
-                    android:textSize="16dp"
-                    android:textColor="#000"
-                    android:text="Habibatul Jalilah" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="80dp"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="12pt"
-                    android:text="Apa yang terjadi?"/>
+                <ImageButton
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/profile_circular_border_imageview"
+                    android:elevation="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_child_care_black_24dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
 
-                <View
-                    android:layout_width="wrap_content"
-                    android:layout_height="2dp"
-                    android:background="#bbb"
-                    android:layout_marginTop="220dp"
-                    android:layout_marginLeft="-385dp">
-                </View>
+                <TextView
+                    android:id="@+id/namaLapor"
+                    android:layout_width="270dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="20dp"
+                    android:clickable="true"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="#000000"
+                    android:text="Anonim" />
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
 
-                <LinearLayout
+            <EditText
+                android:id="@+id/caption"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="100dp"
+                android:background="@drawable/edittext_lost_lapor"
+                android:hint="Apa yang sedang terjadi ?"
+                android:textSize="20dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:hint="Nama Kejadian"
+                    android:id="@+id/namaKejadian"/>
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/nama_kejadian"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="8pt"
-                        android:text="Nama Kejadian"/>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/nama_kejadian" />
+            </RelativeLayout>
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dp"
-                        android:background="#bbb"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginLeft="-385dp">
-                    </View>
 
-                </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
 
-                <LinearLayout
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:hint="Tag"
+                    android:id="@+id/tag"/>
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/hashtag"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="8pt"
-                        android:text="Tag"/>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/hashtag" />
+            </RelativeLayout>
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dp"
-                        android:background="#bbb"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginLeft="-385dp">
-                    </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
 
-                </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <LinearLayout
+
+                <ImageButton
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="45dp"
+                    android:background="#ffffff" />
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/photo"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="8pt"
-                        android:text="Foto/Video"/>
-
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dp"
-                        android:background="#bbb"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginLeft="-385dp">
-                    </View>
-
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:paddingTop="11dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:text="Foto" />
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginLeft="20dp"
-                        android:src="@drawable/location"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:textSize="8pt"
-                        android:text="Lokasi Kejadian"/>
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/photo" />
+            </RelativeLayout>
 
-                    <View
-                        android:layout_width="wrap_content"
-                        android:layout_height="2dp"
-                        android:background="#bbb"
-                        android:layout_marginTop="45dp"
-                        android:layout_marginLeft="-385dp">
-                    </View>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
 
-                </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="#ffffff"
+                    android:id="@+id/lokasiKejadian"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:paddingTop="11dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:text="Lokasi Kejadian" />
+                <!--<EditText-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:paddingLeft="50dp"-->
+                    <!--android:textSize="15dp"-->
+                    <!--android:background="@drawable/edittext_lost_lapor"-->
+                    <!--android:hint="Lokasi"-->
+                    <!--android:id="@+id/lokasi"/>-->
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/location" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000" />
 
             <Button
-                android:layout_width="160dp"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="45dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="180dp"
                 android:backgroundTint="@color/colorMenu"
                 android:background="@drawable/button"
                 android:textSize="20dp"
                 android:fontFamily="Times New Roman"
                 android:textStyle="bold"
                 android:textColor="#ffffff"
-                android:text="KIRIM"/>
-        </LinearLayout>
+                android:text="Kirim"
+                android:id="@+id/buttonPost"/>
 
+        </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

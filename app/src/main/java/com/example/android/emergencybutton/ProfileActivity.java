@@ -38,7 +38,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nama = (TextView) findViewById(R.id.user_profile_name);
         ImageView imageProfile = (ImageView) findViewById(R.id.user_profile_photo);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTop);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

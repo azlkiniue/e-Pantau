@@ -112,12 +112,13 @@ public class FragmentTombolDarurat extends Fragment {
                                 JSONObject lokasiJson = obj.getJSONObject("lokasi");
 
                                 //creating a new user object
-//                                LokasiKejadian lokasi = new LokasiKejadian(
-//                                        lokasiJson.getInt("longitude"),
-//                                        lokasiJson.getString("latitude"),
-//                                        lokasiJson.getString("telp"),
-//                                        lokasiJson.getString("waktu")
-//                                );
+                                LokasiKejadian lokasi = new LokasiKejadian(
+                                        lokasiJson.getInt("id_tombol"),
+                                        lokasiJson.getString("longitude"),
+                                        lokasiJson.getString("latitude"),
+                                        lokasiJson.getString("telp"),
+                                        lokasiJson.getString("waktu")
+                                );
 
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).setLokasi(lokasi);
@@ -216,7 +217,7 @@ public class FragmentTombolDarurat extends Fragment {
                 Double.toString(location.getLongitude());
         Log.d("LocationLatitude = " , Double.toString(location.getLatitude()));
         Log.d("LocationLongitude = " , Double.toString(location.getLongitude()));
-//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         Log.d("LocationChanged: ", msg);
     }
 

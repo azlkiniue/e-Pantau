@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new LaporActivity();
                 break;
             case 2:
-                fragment = new KejadianTerkiniActivity();
+                fragment = new MapsActivity();
                 break;
             case 3:
                 fragment = new DaerahRawanActivity();

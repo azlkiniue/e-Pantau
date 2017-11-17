@@ -15,7 +15,9 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -364,6 +367,8 @@ public class EditActivity extends AppCompatActivity {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.URL_EDIT,
                 new Response.Listener<String>() {
+                    DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_lyt);
+//                    mDrawerLayout.setDrawerListener(mDrawerToggle);
                     @Override
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
@@ -402,6 +407,11 @@ public class EditActivity extends AppCompatActivity {
                                 //starting the profile activity
                                 //finish();
 
+//                                FragmentProfile profileFragment = new FragmentProfile();
+//                                FragmentManager fragmentManager = getSupportFragmentManager();
+//                                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
+//                                //setTitle("e_Pantau : Profile");
+//                                mDrawerLayout.closeDrawers();
                                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                             } else {
                                 Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();

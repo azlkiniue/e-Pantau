@@ -12,7 +12,7 @@ public class LokasiKejadian {
 
 
 
-    public LokasiKejadian(String logitude, String latitude, String telp, String waktu) {
+    public LokasiKejadian(int id_tombol, String logitude, String latitude, String telp, String waktu) {
         this.id_tombol = id_tombol;
         this.logitude = logitude;
         this.latitude = latitude;

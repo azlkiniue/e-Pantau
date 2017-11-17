@@ -24,6 +24,13 @@ public class SharedPrefManager {
     private static final String KEY_LONGITUDE = "keylongitude";
     private static final String KEY_LATITUDE = "keylatitude";
     private static final String KEY_WAKTU = "keywaktu";
+    private static final String KEY_ID_POST = "keyidpost";
+    private static final String KEY_LONGITUDE_LAPOR = "keylongitudelapor";
+    private static final String KEY_LATITUDE_LAPOR = "keylatitudelapor";
+    private static final String KEY_CAPTION = "keycaption";
+    private static final String KEY_TAG = "keytag";
+    private static final String KEY_JUDUL = "keyjudul";
+    private static final String KEY_TANGGAL_POSTING = "keytanggalposting";
 
 
     private static SharedPrefManager mInstance;
@@ -65,7 +72,7 @@ public class SharedPrefManager {
     public void setLokasi(LokasiKejadian lokasi) {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putInt(KEY_ID_TOMBOL, lokasi.getId_tombol());
+        editor.putInt(KEY_ID_TOMBOL, lokasi.getId_tombol());
         editor.putString(KEY_LONGITUDE, lokasi.getLogitude());
         editor.putString(KEY_LATITUDE, lokasi.getLatitude());
         editor.putString(KEY_TOMBOL_TELEPON, lokasi.getTelp());
@@ -78,7 +85,7 @@ public class SharedPrefManager {
     public LokasiKejadian getLokasi(){
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new LokasiKejadian(
-//                sharedPreferences.getInt(KEY_ID_TOMBOL, -1),
+                sharedPreferences.getInt(KEY_ID_TOMBOL, -1),
                 sharedPreferences.getString(KEY_LONGITUDE, null),
                 sharedPreferences.getString(KEY_LATITUDE, null),
                 sharedPreferences.getString(KEY_TOMBOL_TELEPON, null),
@@ -100,6 +107,34 @@ public class SharedPrefManager {
                 sharedPreferences.getString(KEY_FOTO, null)
         );
     }
+
+    public void postKejadian(PostKejadian postKejadian) {
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(KEY_ID_POST, postKejadian.getId_post());
+//        editor.putString(KEY_LONGITUDE_LAPOR, postKejadian.getLogitude());
+//        editor.putString(KEY_LATITUDE_LAPOR, postKejadian.getLatitude());
+        editor.putString(KEY_JUDUL, postKejadian.getJudul());
+        editor.putString(KEY_CAPTION, postKejadian.getCaption());
+        editor.putString(KEY_TAG, postKejadian.getTag());
+         editor.putString(KEY_TANGGAL_POSTING, postKejadian.getTanggal_posting());
+        //editor.apply();
+        editor.commit();
+    }
+
+    public PostKejadian getKejadian(){
+        SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return new PostKejadian(
+                sharedPreferences.getInt(KEY_ID_POST, -1),
+//                sharedPreferences.getString(KEY_LONGITUDE_LAPOR, null),
+//                sharedPreferences.getString(KEY_LATITUDE_LAPOR, null),
+                sharedPreferences.getString(KEY_JUDUL, null),
+                sharedPreferences.getString(KEY_CAPTION, null),
+                sharedPreferences.getString(KEY_TAG, null),
+                sharedPreferences.getString(KEY_TANGGAL_POSTING, null)
+        );
+    }
+
 
     //this method will logout the user
     public void logout() {

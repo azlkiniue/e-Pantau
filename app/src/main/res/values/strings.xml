@@ -13,5 +13,7 @@
         <item>e-Pantau : Statistika</item>
         <item>Logout</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_lapor_maps">Map</string>
 
 </resources>
