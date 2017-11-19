@@ -6,7 +6,7 @@ package com.example.android.emergencybutton;
 
 public class PostKejadian {
     private int id_post;
-    private String judul, tanggal_posting, logitude, latitude, caption, tag;
+    private String judul, tanggal_posting, logitude, latitude, caption, tag, gambar;
 
     public PostKejadian(int id_post, String judul, String tanggal_posting, String caption, String tag) {
         this.id_post = id_post;
@@ -16,6 +16,7 @@ public class PostKejadian {
 //        this.latitude = latitude;
         this.caption = caption;
         this.tag = tag;
+//        this.gambar = gambar;
     }
 
     public int getId_post() {

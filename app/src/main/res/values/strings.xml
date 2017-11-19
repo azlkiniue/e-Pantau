@@ -14,6 +14,29 @@
         <item>Logout</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_lapor_maps">Map</string>
+    <string name="title_activity_lapor_maps">Map</string><string name="intro_message">
+        <![CDATA[
+            This sample uses the PlaceAutocomplete Activity from the Places API for Android to open
+            a fullscreen autocomplete widget when the button is pressed.
+        ]]>
+    </string>
+
+    <string name="open_activity">Open Autocomplete Activity</string>
+    <string name="selected_place">Last Selected Place:</string>
+    <string name="place_details">
+    <![CDATA[
+        <b>%1$s</b>
+        <br/>
+        <i>Place Id: %2$s</i>
+        <br/>
+        Address: %3$s
+        <br/>
+        Phone: %4$s
+        <br/>
+        Website: %5$s
+    ]]>
+    </string>
+
+
 
 </resources>

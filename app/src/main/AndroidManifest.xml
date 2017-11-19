@@ -56,10 +56,9 @@ package="com.example.android.emergencybutton">
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
     <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyA0NfDIExhRgQj6twH2OU7f6Gc0-dnCGO8" />
+        android:value="AIzaSyDvX2w43_r-mo02vpbSMbKCsfeSemvhZok" />
 
     <fragment android:name=".MapsActivity" android:label="@string/title_activity_maps"></fragment>
-    <activity android:name=".LaporMapsActivity" android:label="LaporMap"></activity>
 </application>
 
 </manifest>

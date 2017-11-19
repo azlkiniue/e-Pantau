@@ -81,9 +81,6 @@ public class FragmentTombolDarurat extends Fragment {
                     Intent intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" +number));
                     startActivity(intent);
-
-//                    myCustomDialog();
-
                     notificationAlert();
 
                     return true;
@@ -165,8 +162,6 @@ public class FragmentTombolDarurat extends Fragment {
                 @Override
                 public void onSuccess(Location location) {
                     if (null != location) {
-//                        locations[0] = location;
-
                         koor = new Coordinate();
                         onLocationChanged(location);
                         koor.setLongitude((float)location.getLongitude());
@@ -235,23 +230,5 @@ public class FragmentTombolDarurat extends Fragment {
         notif.notify(0, notify);
     }
 
-//    public void myCustomDialog(){
-//        myDialogTombol = new Dialog(getActivity());
-//        myDialogTombol.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        myDialogTombol.setContentView(R.layout.activity_custom_dialog);
-//        myDialogTombol.setTitle("MyCustomDialog");
-//
-//        closeDialog = myDialogTombol.findViewById(R.id.closeDialog);
-//
-//        closeDialog.setEnabled(true);
-//
-//        closeDialog.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                myDialogTombol.cancel();
-//            }
-//        });
-//        myDialogTombol.show();
-//    }
 
 }

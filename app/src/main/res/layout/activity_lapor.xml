@@ -126,6 +126,7 @@
 
 
                 <ImageButton
+                    android:id="@+id/buttonPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="#ffffff" />
@@ -173,7 +174,8 @@
                     android:paddingTop="11dp"
                     android:textSize="15dp"
                     android:background="@drawable/edittext_lost_lapor"
-                    android:text="Lokasi Kejadian" />
+                    android:text="Lokasi Kejadian"
+                    android:id="@+id/textViewLokasi"/>
                 <!--<EditText-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="45dp"-->

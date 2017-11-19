@@ -31,6 +31,7 @@ public class SharedPrefManager {
     private static final String KEY_TAG = "keytag";
     private static final String KEY_JUDUL = "keyjudul";
     private static final String KEY_TANGGAL_POSTING = "keytanggalposting";
+    private static final String KEY_GAMBAR = "keygambar";
 
 
     private static SharedPrefManager mInstance;
@@ -132,6 +133,7 @@ public class SharedPrefManager {
                 sharedPreferences.getString(KEY_CAPTION, null),
                 sharedPreferences.getString(KEY_TAG, null),
                 sharedPreferences.getString(KEY_TANGGAL_POSTING, null)
+//                sharedPreferences.getString(KEY_GAMBAR, null)
         );
     }
 
