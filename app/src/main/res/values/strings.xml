@@ -14,7 +14,8 @@
         <item>Logout</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
-    <string name="title_activity_lapor_maps">Map</string><string name="intro_message">
+    <string name="title_activity_lapor_maps">Map</string>
+    <string name="intro_message">
         <![CDATA[
             This sample uses the PlaceAutocomplete Activity from the Places API for Android to open
             a fullscreen autocomplete widget when the button is pressed.
@@ -37,6 +38,30 @@
     ]]>
     </string>
 
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
 
+    <string name="slide_1_title">Selamat Datang!</string>
+    <string name="slide_1_desc">Anda dalam keadaan darurat? Atau melihat seseorang dalam keadaan darurat?</string>
+
+    <string name="slide_2_title">Tombol Darurat</string>
+    <string name="slide_2_desc">Tekan tombol, jika dalam keadaan darurat</string>
+
+    <string name="slide_3_title">Kejadian Terkini</string>
+    <string name="slide_3_desc">Lihat semuanya dibagikan oleh orang lain</string>
+
+    <string name="slide_4_title">Lapor</string>
+    <string name="slide_4_desc">Bagikan pengalaman kejahatan yang pernah anda atau orang lain alami</string>
+
+    <string name="slide_5_title">Daerah Rawan</string>
+    <string name="slide_5_desc">Melihat daerah rawan kriminalitas yang ada di sekitar anda</string>
+
+    <string name="slide_6_title">Statistika</string>
+    <string name="slide_6_desc">Melihat tingkat kejadian yang pernah terjadi</string>
+
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
 
 </resources>

@@ -7,4 +7,42 @@
     <color name="colorBtnHijau">#00b300</color>
     <color name="colorMenu">#CC053B</color>
     <color name="colorBackground">#FFFFFF</color>
+
+    <!-- Screens background color-->
+    <color name="bg_screen">#ffffff</color>
+
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#CC053B</color>
+    <color name="dot_dark_screen2">#CC053B</color>
+    <color name="dot_dark_screen3">#CC053B</color>
+    <color name="dot_dark_screen4">#CC053B</color>
+    <color name="dot_dark_screen5">#CC053B</color>
+    <color name="dot_dark_screen6">#CC053B</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#fa3469</color>
+    <color name="dot_light_screen2">#fa3469</color>
+    <color name="dot_light_screen3">#fa3469</color>
+    <color name="dot_light_screen4">#fa3469</color>
+    <color name="dot_light_screen5">#fa3469</color>
+    <color name="dot_light_screen6">#fa3469</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen4</item>
+        <item>@color/dot_light_screen5</item>
+        <item>@color/dot_light_screen6</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+        <item>@color/dot_dark_screen5</item>
+        <item>@color/dot_dark_screen6</item>
+    </array>
 </resources>

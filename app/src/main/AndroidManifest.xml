@@ -1,53 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.example.android.emergencybutton">
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.android.emergencybutton">
 
-<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<uses-permission android:name="android.permission.CALL_PHONE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
-<application android:allowBackup="true" android:icon="@drawable/icon_launcher" android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:theme="@style/AppTheme">
-    <activity android:name=".SplashScreen">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".Activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity android:name=".SignupActivity" />
-    <activity android:name=".LoginActivity" />
-    <activity android:name=".ProfileActivity" android:label="e_Pantau : Profile"
-        android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
-    </activity>
-    <activity android:name=".MainActivity" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.SignupActivity" />
+        <activity android:name=".Activity.LoginActivity" />
+        <activity
+            android:name=".Activity.ProfileActivity"
+            android:label="e_Pantau : Profile"
+            android:parentActivityName=".Activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainActivity" />
+        </activity>
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.SplashScreen" />
 
-    <fragment android:name=".FragmentTombolDarurat" />
-    <fragment android:name=".FragmentProfile" />
-    <fragment android:name=".FragmentTwo" />
-    <fragment android:name=".FragmentThree" />
+        <fragment android:name=".FragmentTombolDarurat" />
+        <fragment android:name=".KejadianTerkiniActivity" />
+        <fragment android:name=".LaporActivity" />
+        <fragment android:name=".FragmentProfile" />
+        <fragment android:name=".FragmentTwo" />
+        <fragment android:name=".FragmentThree" />
 
-    <activity android:name=".GetPhoneNumberActivity" />
-    <activity android:name=".DetailKejadianActivity"
-        android:label="e_Pantau : Detail Kejadian"
-        android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity" />
-    </activity>
-    <activity
-        android:name=".EditActivity"
-        android:label="e_Pantau : Edit Profile"
-        android:parentActivityName=".ProfileActivity">
-        <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity" />
-    </activity>
-    <!--
+        <activity
+            android:name=".Activity.DetailKejadianActivity"
+            android:label="e_Pantau : Detail Kejadian"
+            android:parentActivityName=".Activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Activity.EditActivity"
+            android:label="e_Pantau : Edit Profile"
+            android:parentActivityName=".Activity.ProfileActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.MainActivity" />
+        </activity>
+        <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
@@ -55,10 +68,14 @@ package="com.example.android.emergencybutton">
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
-    <meta-data android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDvX2w43_r-mo02vpbSMbKCsfeSemvhZok" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDvX2w43_r-mo02vpbSMbKCsfeSemvhZok" />
 
-    <fragment android:name=".MapsActivity" android:label="@string/title_activity_maps"></fragment>
-</application>
+        <activity
+            android:name=".Activity.MapsActivity"
+            android:label="@string/title_activity_maps" />
+
+    </application>
 
 </manifest>

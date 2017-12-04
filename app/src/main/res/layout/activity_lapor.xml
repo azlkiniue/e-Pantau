@@ -18,17 +18,14 @@
                 android:layout_height="80dp"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="55dp"
                     android:layout_height="55dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/profile_circular_border_imageview"
-                    android:elevation="10dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_child_care_black_24dp"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true" />
+                    android:src="@drawable/username"
+                    android:id="@+id/profileLapor"/>
 
                 <TextView
                     android:id="@+id/namaLapor"
@@ -95,6 +92,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="#ffffff"
+                    android:id="@+id/tag"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:paddingTop="11dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:text="Tag"/>
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/hashtag" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -104,16 +130,47 @@
                     android:paddingLeft="50dp"
                     android:textSize="15dp"
                     android:background="@drawable/edittext_lost_lapor"
-                    android:hint="Tag"
-                    android:id="@+id/tag"/>
+                    android:hint="Tag1"
+                    android:id="@+id/tag1"/>
 
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/hashtag" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:hint="Tag2"
+                    android:id="@+id/tag2"/>
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost_lapor"
+                    android:hint="Tag3"
+                    android:id="@+id/tag3"/>
+
+            </RelativeLayout>
+
 
             <View
                 android:layout_width="match_parent"
@@ -199,6 +256,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#000000" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/latitudeLoc"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/longitudeLoc"/>
 
             <Button
                 android:layout_width="150dp"

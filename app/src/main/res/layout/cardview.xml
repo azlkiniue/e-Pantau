@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    >
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageViewFoto"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/textViewNama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/imageViewFoto"
+                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@+id/imageViewFoto"
+                android:layout_toRightOf="@+id/imageViewFoto"
+                android:text="JSon Image Name"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textViewTanggalPosting"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewNama"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@+id/imageViewFoto"
+                android:text="Tanggal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout1">
+
+            <com.example.android.emergencybutton.Activity.AspectRatioImageView
+                android:id="@+id/imageViewGambar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:layout_below="@+id/relativeLayout2">
+
+            <TextView
+                android:id="@+id/textViewJudul"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="2dp"
+                android:text="Judul"
+                android:textColor="#000"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/textViewAlamat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewJudul"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Alamat"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textViewCaption"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textViewAlamat"
+                android:layout_below="@+id/textViewAlamat"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="10dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="Detail"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textViewTag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textViewCaption"
+                android:layout_alignStart="@+id/textViewCaption"
+                android:layout_below="@+id/textViewCaption"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textViewTag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewCaption"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toRightOf="@+id/textViewTag1"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/textViewTag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewCaption"
+                android:layout_toRightOf="@+id/textViewTag2"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@+id/relativeLayout3">
+
+            <TextView
+                android:id="@+id/textViewKomentar"
+                android:layout_width="150dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
+                android:text="0 Komentar" />
+
+            <TextView
+                android:id="@+id/textViewRating"
+                android:layout_width="120dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@+id/textViewKomentar"
+                android:paddingLeft="100dp"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/buttonUp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/textViewRating"
+                android:background="@android:drawable/arrow_up_float" />
+
+            <Button
+                android:id="@+id/buttonDown"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_toRightOf="@+id/buttonUp"
+                android:background="@android:drawable/arrow_down_float" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>
