@@ -1,25 +1,39 @@
 package com.example.android.emergencybutton.Fragment;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -34,6 +48,12 @@ import com.example.android.emergencybutton.Model.Coordinate;
 import com.example.android.emergencybutton.Model.LokasiKejadian;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
+import com.example.android.emergencybutton.base.BaseFragment;
+import com.github.amlcurran.showcaseview.OnShowcaseEventListener;
+import com.github.amlcurran.showcaseview.ShowcaseDrawer;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -47,7 +67,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FragmentTombolDarurat extends Fragment {
+public class FragmentTombolDarurat extends BaseFragment {
     private static final int MY_PERMISSION_REQUEST_CODE = 17;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private Button mEmergency;
@@ -57,37 +77,127 @@ public class FragmentTombolDarurat extends Fragment {
     User user;
     LokasiKejadian lokasi;
     SharedPrefManager sharedPrefManager;
-    ProgressBar progressBar;
-    Button closeDialog;
-    Dialog myDialogTombol;
 
-        public static Fragment newInstance(Context context) {
-            FragmentTombolDarurat f = new FragmentTombolDarurat();
+    private Target b_emergency;
 
-            return f;
-        }
+    private  int countador = 0;
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-            ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_tombol_darurat, null);
+    private ShowcaseView showcaseView;
 
-            // Create an instance of GoogleAPIClient.
-            mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
-            mEmergency = (Button) root.findViewById(R.id.b_emergency);
-            mEmergency.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    getLocation();
+    final int SHOWCASE_ID = 28;
+
+    private String title = "Tombol Darurat";
+
+    public static Fragment newInstance(Context context) {
+        FragmentTombolDarurat f = new FragmentTombolDarurat();
+
+        return f;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_tombol_darurat, null);
+
+        setHasOptionsMenu(true);
+
+        // Create an instance of GoogleAPIClient.
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        mEmergency = (Button) root.findViewById(R.id.b_emergency);
+        mEmergency.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                if (ContextCompat.checkSelfPermission(getActivity(),
+                        Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" +number));
                     startActivity(intent);
-                    notificationAlert();
-
-                    return true;
                 }
-            });
-            return root;
+                getLocation();
+                notificationAlert();
+
+                return true;
+            }
+        });
+
+        return root;
+    }
+
+    @Override
+    protected String getTitle() {
+        return title;
+    }
+
+
+    private static class CustomShowcaseView implements ShowcaseDrawer {
+
+        private final float width;
+        private final float height;
+        private final Paint eraserPaint;
+        private final Paint basicPaint;
+        private final int eraseColour;
+        private final RectF renderRect;
+
+        public CustomShowcaseView(Resources resources) {
+            width = resources.getDimension(R.dimen.custom_showcase_width);
+            height = resources.getDimension(R.dimen.custom_showcase_height);
+            PorterDuffXfermode xfermode = new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY);
+            eraserPaint = new Paint();
+            eraserPaint.setColor(0xFFFFFF);
+            eraserPaint.setAlpha(0);
+            eraserPaint.setXfermode(xfermode);
+            eraserPaint.setAntiAlias(true);
+            eraseColour = resources.getColor(R.color.custom_showcase_bg);
+            basicPaint = new Paint();
+            renderRect = new RectF();
         }
+
+        @Override
+        public void setShowcaseColour(int color) {
+            eraserPaint.setColor(color);
+        }
+
+        @Override
+        public void drawShowcase(Bitmap buffer, float x, float y, float scaleMultiplier) {
+            Canvas bufferCanvas = new Canvas(buffer);
+            renderRect.left = x - width / 2f;
+            renderRect.right = x + width / 2f;
+            renderRect.top = y - height / 2f;
+            renderRect.bottom = y + height / 2f;
+            bufferCanvas.drawRect(renderRect, eraserPaint);
+        }
+
+        @Override
+        public int getShowcaseWidth() {
+            return (int) width;
+        }
+
+        @Override
+        public int getShowcaseHeight() {
+            return (int) height;
+        }
+
+        @Override
+        public float getBlockedRadius() {
+            return width;
+        }
+
+        @Override
+        public void setBackgroundColour(int backgroundColor) {
+            // No-op, remove this from the API?
+        }
+
+        @Override
+        public void erase(Bitmap bitmapBuffer) {
+            bitmapBuffer.eraseColor(eraseColour);
+        }
+
+        @Override
+        public void drawToCanvas(Canvas canvas, Bitmap bitmapBuffer) {
+            canvas.drawBitmap(bitmapBuffer, 0, 0, basicPaint);
+        }
+
+    }
+
 
     protected void sendLocation(final String longitude, final String latitude, final String id, final String telp, final String waktu){
 
@@ -95,7 +205,6 @@ public class FragmentTombolDarurat extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -230,5 +339,28 @@ public class FragmentTombolDarurat extends Fragment {
         notif.notify(0, notify);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+            showcaseView = new ShowcaseView.Builder(getActivity())
+                    .setTarget(new com.github.amlcurran.showcaseview.targets.ViewTarget(R.id.b_emergency, getActivity()))
+                    .setContentTitle("Tombol Darurat")
+                    .setContentText("Tekan tombol selama 2 detik" +
+                            ", Anda akan terhubung ke command center dan mendapatkan notifikasi")
+//                                    .setShowcaseDrawer(new CustomShowcaseView(getResources()))
+                    .setStyle(R.style.showCaseViewStyle)
+                    .build();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

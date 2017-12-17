@@ -138,15 +138,11 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(KEY_ID_POST, postKejadian.getId_post());
-        editor.putInt(KEY_ID_TAG, postKejadian.getId_tag());
         editor.putString(KEY_JUDUL, postKejadian.getJudul());
         editor.putString(KEY_CAPTION, postKejadian.getCaption());
         editor.putString(KEY_TANGGAL_POSTING, postKejadian.getTanggal_posting());
         editor.putString(KEY_LONGITUDE, postKejadian.getLongitude());
         editor.putString(KEY_LATITUDE, postKejadian.getLatitude());
-        editor.putString(KEY_TAG1, postKejadian.getTag1());
-//        editor.putString(KEY_TAG2, postKejadian.getTag2());
-//        editor.putString(KEY_TAG3, postKejadian.getTag3());
         //editor.apply();
         editor.commit();
     }
@@ -155,18 +151,11 @@ public class SharedPrefManager {
         SharedPreferences sharedPreferences = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return new PostKejadian(
                 sharedPreferences.getInt(KEY_ID_POST, -1),
-                sharedPreferences.getInt(KEY_ID_TAG, -1),
-//                sharedPreferences.getString(KEY_LONGITUDE_LAPOR, null),
-//                sharedPreferences.getString(KEY_LATITUDE_LAPOR, null),
                 sharedPreferences.getString(KEY_JUDUL, null),
                 sharedPreferences.getString(KEY_CAPTION, null),
                 sharedPreferences.getString(KEY_TANGGAL_POSTING, null),
                 sharedPreferences.getString(KEY_LATITUDE, null),
-                sharedPreferences.getString(KEY_LONGITUDE, null),
-                sharedPreferences.getString(KEY_TAG1, null)
-//                sharedPreferences.getString(KEY_TAG2, null),
-//                sharedPreferences.getString(KEY_TAG3, null)
-//                sharedPreferences.getString(KEY_GAMBAR, null)
+                sharedPreferences.getString(KEY_LONGITUDE, null)
         );
     }
 

@@ -1,14 +1,14 @@
-package com.example.android.emergencybutton.Activity;
+package com.example.android.emergencybutton.Fragment;
 
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +18,7 @@ import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
+import com.example.android.emergencybutton.base.BaseFragment;
 
 import org.ocpsoft.prettytime.PrettyTime;
 
@@ -30,13 +31,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class DetailKejadianActivity extends AppCompatActivity {
+/**
+ * Created by ASUS on 12/17/2017.
+ */
+
+public class FragmentDetailKejadian extends BaseFragment {
+
+    private String title = "Daerah Rawan";
     Toolbar toolbar;
+    public String dataPost_ID = "id";
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_kejadian);
-//        setupToolbar();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_detail_kejadian, null);
 
         TextView textViewJudul;
         TextView textViewCaption;
@@ -46,15 +53,20 @@ public class DetailKejadianActivity extends AppCompatActivity {
         ImageView imageViewGambar;
         ImageView imageViewFoto;
 
-        textViewJudul = (TextView) findViewById(R.id.textViewJudul) ;
-        textViewCaption = (TextView) findViewById(R.id.textViewCaption);
-        textViewTanggalPosting = (TextView) findViewById(R.id.textViewTanggalPosting);
-        textViewNama = (TextView) findViewById(R.id.textViewNama);
-        textViewAlamat = (TextView) findViewById(R.id.textViewAlamat);
-        imageViewGambar = (ImageView) findViewById(R.id.imageViewGambar);
-        imageViewFoto = (ImageView) findViewById(R.id.imageViewFoto);
+        textViewJudul = (TextView) root.findViewById(R.id.textViewJudul) ;
+        textViewCaption = (TextView) root.findViewById(R.id.textViewCaption);
+        textViewTanggalPosting = (TextView) root.findViewById(R.id.textViewTanggalPosting);
+        textViewNama = (TextView) root.findViewById(R.id.textViewNama);
+        textViewAlamat = (TextView) root.findViewById(R.id.textViewAlamat);
+        imageViewGambar = (ImageView) root.findViewById(R.id.imageViewGambar);
+        imageViewFoto = (ImageView) root.findViewById(R.id.imageViewFoto);
 
-        PostKejadian dataAdapterOBJ = (PostKejadian) getIntent().getExtras().getSerializable("bundle");
+        PostKejadian dataAdapterOBJ;
+
+        Bundle arguments = getArguments();
+
+        dataAdapterOBJ = (PostKejadian) arguments.getSerializable(dataPost_ID);
+
 
 
         String gambar = dataAdapterOBJ.getGambar();
@@ -95,6 +107,8 @@ public class DetailKejadianActivity extends AppCompatActivity {
         textViewTanggalPosting.setText(tanggal);
         textViewNama.setText(dataAdapterOBJ.getNama());
         textViewAlamat.setText(getAddressFromLocation(latitude,longitude));
+
+        return root;
     }
 
     public static String ConvertTimeStampintoAgo(Long timeStamp)
@@ -119,7 +133,7 @@ public class DetailKejadianActivity extends AppCompatActivity {
 
     private String getAddressFromLocation(double latitude, double longitude) {
 
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
         String alamat = "Alamat tidak tersedia";
 
         try {
@@ -149,13 +163,17 @@ public class DetailKejadianActivity extends AppCompatActivity {
     }
 
     private void printToast(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
-    void setupToolbar(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-    }
+//    void setupToolbar(){
+//        toolbar = (Toolbar) root.findViewById(R.id.toolbar);
+//        getActivity().getActionBar().setSupportActionBar(toolbar);
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+//    }
 
+    @Override
+    protected String getTitle() {
+        return title;
+    }
 }

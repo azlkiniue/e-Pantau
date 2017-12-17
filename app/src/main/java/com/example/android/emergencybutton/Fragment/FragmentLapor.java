@@ -1,5 +1,6 @@
-package com.example.android.emergencybutton.Activity;
+package com.example.android.emergencybutton.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,16 +9,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -35,6 +41,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.android.emergencybutton.Activity.MainActivity;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Controller.VolleySingleton;
@@ -42,6 +49,10 @@ import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
+import com.example.android.emergencybutton.base.BaseFragment;
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.Target;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -71,17 +82,17 @@ import static android.app.Activity.RESULT_OK;
  * Created by ASUS on 10/15/2017.
  */
 
-public class LaporActivity extends Fragment {
+public class FragmentLapor extends BaseFragment {
 
     TextView namaLapor, textViewLokasi, textViewLatitude, textViewLongitude;
-    EditText editTextJudul, editTextCaption, editTextTag1, editTextTag2, editTextTag3;
+    EditText editTextJudul, editTextCaption;
     User user1;
-    ImageButton lokasi, editTextTag;
     boolean check = true;
     ImageButton buttonPhoto;
     ImageView imageProfile;
 
     double latitudeLoc, longitudeLoc;
+    private String title = "Lapor";
 
 
     private static final int REQUEST_CODE_AUTOCOMPLETE = 1;
@@ -100,10 +111,18 @@ public class LaporActivity extends Fragment {
     //Uri to store the image uri
     private Uri filePath;
 
+    private ShowcaseView showcaseView;
+
+    private  int countador = 0;
+
+    private Target t1, t2, t3;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_lapor, null);
+
+        setHasOptionsMenu(true);
 
         namaLapor = (TextView) root.findViewById(R.id.namaLapor);
 
@@ -112,10 +131,6 @@ public class LaporActivity extends Fragment {
 
         editTextJudul = (EditText) root.findViewById(R.id.namaKejadian);
         editTextCaption = (EditText) root.findViewById(R.id.caption);
-        editTextTag = (ImageButton) root.findViewById(R.id.tag);
-        editTextTag1 = (EditText) root.findViewById(R.id.tag1);
-        editTextTag2 = (EditText) root.findViewById(R.id.tag2);
-        editTextTag3 = (EditText) root.findViewById(R.id.tag3);
         buttonPhoto = (ImageButton) root.findViewById(R.id.buttonPhoto);
         textViewLokasi = (TextView) root.findViewById(R.id.textViewLokasi);
         textViewLatitude = (TextView) root.findViewById(R.id.latitudeLoc);
@@ -124,18 +139,6 @@ public class LaporActivity extends Fragment {
 
         textViewLatitude.setVisibility(View.GONE);
         textViewLongitude.setVisibility(View.GONE);
-        editTextTag1.setVisibility(View.GONE);
-        editTextTag2.setVisibility(View.GONE);
-        editTextTag3.setVisibility(View.GONE);
-
-        editTextTag.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editTextTag1.setVisibility(view.VISIBLE);
-                editTextTag2.setVisibility(view.VISIBLE);
-                editTextTag3.setVisibility(view.VISIBLE);
-            }
-        });
 
         user1 = new User();
 
@@ -165,7 +168,7 @@ public class LaporActivity extends Fragment {
         root.findViewById(R.id.buttonPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim(), editTextTag1.getText().toString().trim());
+                postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
                 startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
                 Log.d("Latitude2", "" + textViewLatitude.getText());
                 Log.d("Longitude2", "" + textViewLongitude.getText());
@@ -181,6 +184,83 @@ public class LaporActivity extends Fragment {
 
         return root;
     }
+
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+
+        t1 = new ViewTarget(R.id.buttonPost, getActivity());
+        t2 = new CustomViewTarget(R.id.buttonPhoto, -150, 0, getActivity());
+        t3 = new CustomViewTarget(R.id.caption, -150, -30, getActivity());
+
+
+        showcaseView = new ShowcaseView.Builder(getActivity())
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        switch (countador){
+                            case 0:
+                                showcaseView.show();
+                                showcaseView.setShowcase(t2,true);
+                                showcaseView.setContentTitle("Upload Data");
+                                showcaseView.setContentText("Masukkan data yang benar dan lengkap");
+                                showcaseView.setButtonText("Next");
+                                break;
+                            case 1:
+                                showcaseView.show();
+                                showcaseView.setShowcase(t1,true);
+                                showcaseView.setContentTitle("Button Kirim");
+                                showcaseView.setContentText("Tekan button setelah anda yakin semua data terisi dengan benar");
+                                showcaseView.setButtonText("Close");
+                                break;
+                            case 2:
+                                showcaseView.hide();
+                                break;
+                        }
+                        countador++;
+
+                    }
+                })
+                .setStyle(R.style.showCaseViewStyle)
+                .build();
+        showcaseView.setButtonText("Close");
+        showcaseView.hide();
+
+    }
+
+    @Override
+    protected String getTitle() {
+        return  title;
+    }
+
+
+    public class CustomViewTarget implements Target {
+
+        private final View mView;
+        private int offsetX;
+        private int offsetY;
+
+        public CustomViewTarget(View view) {
+            mView = view;
+        }
+
+        public CustomViewTarget(int viewId, int offsetX, int offsetY, Activity activity) {
+            this.offsetX = offsetX;
+            this.offsetY = offsetY;
+            mView = activity.findViewById(viewId);
+        }
+
+        @Override
+        public Point getPoint() {
+            int[] location = new int[2];
+            mView.getLocationInWindow(location);
+            int x = location[0] + mView.getWidth() / 2 + offsetX;
+            int y = location[1] + mView.getHeight() / 2 + offsetY;
+            return new Point(x, y);
+        }
+    }
+
+
 
     //Upload gambar
 
@@ -223,23 +303,6 @@ public class LaporActivity extends Fragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
-
-    //handling the image chooser activity result
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-//            filePath = data.getData();
-//            try {
-//                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-////                imageViewFoto.setImageBitmap(bitmap);
-//
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     private void openAutocompleteActivity() {
         try {
@@ -378,7 +441,7 @@ public class LaporActivity extends Fragment {
 
 
 
-    private void postKejadian(final String id, final String judul, final String caption, final String tanggalposting, final String latitude, final String longitude, final String tag1) {
+    private void postKejadian(final String id, final String judul, final String caption, final String tanggalposting, final String latitude, final String longitude) {
 
         //first we will do the validations
 
@@ -417,16 +480,11 @@ public class LaporActivity extends Fragment {
                                 //creating a new user object
                                 PostKejadian postKejadian = new PostKejadian(
                                         postKejadianJson.getInt("id_post"),
-                                        postKejadianJson.getInt("id_tag"),
                                         postKejadianJson.getString("judul"),
                                         postKejadianJson.getString("caption"),
                                         postKejadianJson.getString("tanggal_posting"),
                                         postKejadianJson.getString("latitude"),
-                                        postKejadianJson.getString("longitude"),
-                                        postKejadianJson.getString("tag1")
-//                                        postKejadianJson.getString("tag2"),
-//                                        postKejadianJson.getString("tag3")
-//                                        postKejadianJson.getString("gambar")
+                                        postKejadianJson.getString("longitude")
                                 );
 
                                 //storing the user in shared preferences
@@ -459,7 +517,6 @@ public class LaporActivity extends Fragment {
                 params.put("tanggal_posting",tanggalposting);
                 params.put("latitude",latitude);
                 params.put("longitude",longitude);
-                params.put("tag1", tag1);
 
                 return params;
             }
@@ -511,4 +568,27 @@ public class LaporActivity extends Fragment {
 
         }
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_help) {
+            countador = 0;
+            showcaseView.show();
+            showcaseView.setShowcase(t3,true);
+            showcaseView.setContentTitle("Caption");
+            showcaseView.setContentText("Tuliskan caption sesuai dengan keinginan Anda yang sesuai dengan kondisi kejadian");
+            showcaseView.setButtonText("Next");
+            //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

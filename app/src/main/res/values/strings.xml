@@ -10,7 +10,6 @@
         <item>e-Pantau : Lapor</item>
         <item>e-Pantau : Kejadian Terkini</item>
         <item>e-Pantau : Daerah Rawan</item>
-        <item>e-Pantau : Statistika</item>
         <item>Logout</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
@@ -63,5 +62,6 @@
 
     <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
     <string name="play_again">Play Again</string>
+    <string name="title_activity_coba">CobaActivity</string>
 
 </resources>

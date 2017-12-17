@@ -1,15 +1,20 @@
 package com.example.android.emergencybutton.Activity;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -28,18 +33,22 @@ import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Adapter.DrawerItemCustomAdapter;
+import com.example.android.emergencybutton.Fragment.FragmentDaerahRawan;
+import com.example.android.emergencybutton.Fragment.FragmentLapor;
 import com.example.android.emergencybutton.Fragment.FragmentProfile;
 import com.example.android.emergencybutton.Fragment.FragmentTombolDarurat;
 import com.example.android.emergencybutton.Fragment.FragmentKejadianTerkini;
-import com.example.android.emergencybutton.Fragment.FragmentStatistika;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.DataModel;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
+import com.example.android.emergencybutton.base.BaseActivity;
+import com.example.android.emergencybutton.base.BaseFragment;
 
 import java.security.MessageDigest;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 77;
     private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -49,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (!SharedPrefManager.getInstance(this).isLoggedIn()) {
@@ -68,14 +77,13 @@ public class MainActivity extends AppCompatActivity {
         setupToolbar();
         //toolbar.setLogo(android.R.drawable.ic_menu_help);
 
-        DataModel[] drawerItem = new DataModel[6];
+        DataModel[] drawerItem = new DataModel[5];
 
         drawerItem[0] = new DataModel(R.drawable.menu_tombol, "Tombol Darurat");
         drawerItem[1] = new DataModel(R.drawable.menu_lapor, "Lapor");
         drawerItem[2] = new DataModel(R.drawable.menu_kejadian, "Kejadian Terkini");
         drawerItem[3] = new DataModel(R.drawable.menu_daerahrawan, "Daerah Rawan");
-        drawerItem[4] = new DataModel(R.drawable.menu_chart, "Statistika");
-        drawerItem[5] = new DataModel(R.drawable.menu_logout, "Logout");
+        drawerItem[4] = new DataModel(R.drawable.menu_logout, "Logout");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -89,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.profileLayout).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                FragmentProfile profileFragment = new FragmentProfile();
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
+//                FragmentProfile profileFragment = new FragmentProfile();
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
+                add(new FragmentProfile(), true);
                 //setTitle("e_Pantau : Profile");
                 mDrawerLayout.closeDrawers();
 //                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
@@ -112,10 +121,44 @@ public class MainActivity extends AppCompatActivity {
                 .apply(new RequestOptions().transform(new CircleTransform(MainActivity.this)))// applying the image transformer
                 .into(imageViewFoto);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
+//        String number = ("tel:" + numTxt.getText());
+//        Intent mIntent = new Intent(Intent.ACTION_CALL);
+//        mIntent.setData(Uri.parse(number));
+// Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
 
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
 
+            // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
+            // app-defined int constant. The callback method gets the
+            // result of the request.
+        } else {
+            //You already have permission
+            try {
+                add(new FragmentTombolDarurat(), true);
+//                startActivity(mIntent);
+            } catch(SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
+        add(new FragmentTombolDarurat(), true);
+    }
+
+    @Override
+    protected ActionBarDrawerToggle getDrawerToggle() {
+        return mDrawerToggle;
+    }
+
+    @Override
+    protected DrawerLayout getDrawer() {
+        return mDrawerLayout;
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -129,26 +172,23 @@ public class MainActivity extends AppCompatActivity {
 
     private void selectItem(int position) {
 
-        Fragment fragment = null;
+        BaseFragment fragment = null;
 
         switch (position) {
             case 0:
                 fragment = new FragmentTombolDarurat();
                 break;
             case 1:
-                fragment = new LaporActivity();
+                fragment = new FragmentLapor();
 //                position = 2;
                 break;
             case 2:
                 fragment = new FragmentKejadianTerkini();
                 break;
             case 3:
-                fragment = new DaerahRawanActivity();
+                fragment = new FragmentDaerahRawan();
                 break;
             case 4:
-                fragment = new FragmentStatistika();
-                break;
-            case 5:
                 SharedPrefManager.getInstance(getApplicationContext()).logout();
                 finish();
                 //fragment = new FragmentThree();
@@ -159,8 +199,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+            add(fragment, true);
+//            FragmentManager fragmentManager = getSupportFragmentManager();
+//            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
             mDrawerList.setItemChecked(position, true);
             mDrawerList.setSelection(position);
@@ -172,21 +214,21 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_help) {
-            //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        return true;
+//    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.action_help) {
+//            //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {

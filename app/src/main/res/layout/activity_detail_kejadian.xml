@@ -7,164 +7,138 @@
     tools:context="com.example.android.emergencybutton.Activity.DetailKejadianActivity"
     android:background="#FFFFFF">
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/relativeLayout1">
+        android:layout_height="match_parent">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imageViewFoto"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="13dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_marginStart="13dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
-
-        <TextView
-            android:id="@+id/textViewNama"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="JSon Image Name"
-            android:textColor="#000"
-            android:textSize="20dp"
-            android:layout_alignTop="@+id/imageViewFoto"
-            android:layout_toRightOf="@+id/imageViewFoto"
-            android:layout_toEndOf="@+id/imageViewFoto"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp" />
-        <TextView
-            android:id="@+id/textViewTanggalPosting"
-            android:layout_toRightOf="@+id/imageViewFoto"
-            android:layout_below="@+id/textViewNama"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:text="Tanggal"/>
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:id="@+id/relativeLayout1">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout2"
-        android:layout_below="@+id/relativeLayout1">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewFoto"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="13dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:layout_marginStart="13dp"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-        <com.example.android.emergencybutton.Activity.AspectRatioImageView
-            android:id="@+id/imageViewGambar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/textViewNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="JSon Image Name"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:layout_alignTop="@+id/imageViewFoto"
+                    android:layout_toRightOf="@+id/imageViewFoto"
+                    android:layout_toEndOf="@+id/imageViewFoto"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp" />
+                <TextView
+                    android:id="@+id/textViewTanggalPosting"
+                    android:layout_toRightOf="@+id/imageViewFoto"
+                    android:layout_below="@+id/textViewNama"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Tanggal"/>
 
-    </RelativeLayout>
+            </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="130dp"
-        android:id="@+id/relativeLayout3"
-        android:layout_below="@+id/relativeLayout2">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/relativeLayout2"
+                android:layout_below="@+id/relativeLayout1">
 
-        <TextView
-            android:id="@+id/textViewJudul"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Judul"
-            android:textSize="20dp"
-            android:textColor="#000"
-            android:paddingTop="2dp"/>
+                <com.example.android.emergencybutton.Activity.AspectRatioImageView
+                    android:id="@+id/imageViewGambar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/textViewAlamat"
-            android:layout_below="@+id/textViewJudul"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:text="Alamat"
-            android:textSize="12dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"/>
+            </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textViewCaption"
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="130dp"
+                android:id="@+id/relativeLayout3"
+                android:layout_below="@+id/relativeLayout2">
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:text="Detail"
-            android:textColor="#000"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:layout_below="@+id/textViewAlamat"
-            android:layout_alignLeft="@+id/textViewAlamat"
-            android:layout_marginBottom="5dp"
-            android:layout_marginRight="10dp"/>
+                <TextView
+                    android:id="@+id/textViewJudul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Judul"
+                    android:textSize="20dp"
+                    android:textColor="#000"
+                    android:paddingTop="2dp"/>
 
-        <TextView
-            android:id="@+id/textViewTag1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_alignLeft="@+id/textViewCaption"
-            android:layout_alignStart="@+id/textViewCaption"
-            android:layout_below="@+id/textViewCaption"/>
+                <TextView
+                    android:id="@+id/textViewAlamat"
+                    android:layout_below="@+id/textViewJudul"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Alamat"
+                    android:textSize="12dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
 
-        <TextView
-            android:id="@+id/textViewTag2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_toRightOf="@+id/textViewTag1"
-            android:layout_below="@+id/textViewCaption"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"/>
-        <TextView
-            android:id="@+id/textViewTag3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12dp"
-            android:layout_toRightOf="@+id/textViewTag2"
-            android:layout_below="@+id/textViewCaption"/>
+                <TextView
+                    android:id="@+id/textViewCaption"
 
-    </RelativeLayout>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14dp"
+                    android:text="Detail"
+                    android:textColor="#000"
+                    android:maxLines="2"
+                    android:ellipsize="end"
+                    android:layout_below="@+id/textViewAlamat"
+                    android:layout_alignLeft="@+id/textViewAlamat"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="10dp"/>
 
-    <RelativeLayout
-        android:layout_below="@+id/relativeLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="30dp">
+                <TextView
+                    android:id="@+id/textViewTag1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_alignLeft="@+id/textViewCaption"
+                    android:layout_alignStart="@+id/textViewCaption"
+                    android:layout_below="@+id/textViewCaption"/>
 
-        <TextView
-            android:id="@+id/textViewKomentar"
-            android:layout_width="150dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="12dp"
-            android:text="0 Komentar"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="12dp" />
+                <TextView
+                    android:id="@+id/textViewTag2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_toRightOf="@+id/textViewTag1"
+                    android:layout_below="@+id/textViewCaption"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"/>
+                <TextView
+                    android:id="@+id/textViewTag3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:layout_toRightOf="@+id/textViewTag2"
+                    android:layout_below="@+id/textViewCaption"/>
 
-        <TextView
-            android:id="@+id/textViewRating"
-            android:text="0"
-            android:paddingLeft="100dp"
-            android:layout_toRightOf="@+id/textViewKomentar"
-            android:layout_width="120dp"
-            android:layout_height="20dp"/>
+            </RelativeLayout>
 
-        <Button
-            android:id="@+id/buttonUp"
-            android:layout_toRightOf="@+id/textViewRating"
-            android:background="@android:drawable/arrow_up_float"
-            android:layout_height="25dp"
-            android:layout_width="25dp"/>
+        </RelativeLayout>
 
-        <Button
-            android:id="@+id/buttonDown"
-            android:layout_toRightOf="@+id/buttonUp"
-            android:background="@android:drawable/arrow_down_float"
-            android:layout_height="25dp"
-            android:layout_width="25dp"/>
-    </RelativeLayout>
+    </ScrollView>
+
 </RelativeLayout>

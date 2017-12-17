@@ -8,22 +8,18 @@ import java.io.Serializable;
 
 public class PostKejadian implements Serializable {
     private int id_post, id_tag, id_user;
-    private String judul, tanggal_posting, longitude, latitude, caption, gambar, tag1, foto, nama;
+    private String judul, tanggal_posting, longitude, latitude, caption, gambar, foto, nama;
 
     public PostKejadian() {
     }
 
-    public PostKejadian(int id_post, int id_tag, String judul, String tanggal_posting, String caption, String latitude, String longitude, String tag1) {
-        this.id_tag = id_tag;
+    public PostKejadian(int id_post, String judul, String tanggal_posting, String caption, String latitude, String longitude) {
         this.id_post = id_post;
         this.judul = judul;
         this.tanggal_posting = tanggal_posting;
         this.longitude = longitude;
         this.latitude = latitude;
         this.caption = caption;
-        this.tag1 = tag1;
-//        this.tag2 = tag2;
-//        this.tag3 = tag3;
 //        this.gambar = gambar;
     }
 
@@ -51,22 +47,6 @@ public class PostKejadian implements Serializable {
         return caption;
     }
 
-    public int getId_tag() {
-        return id_tag;
-    }
-
-    public String getTag1() {
-        return tag1;
-    }
-
-//    public String getTag2() {
-//        return tag2;
-//    }
-//
-//    public String getTag3() {
-//        return tag3;
-//    }
-
     public String getGambar() {
         return gambar;
     }
@@ -89,10 +69,6 @@ public class PostKejadian implements Serializable {
 
     public void setId_post(int id_post) {
         this.id_post = id_post;
-    }
-
-    public void setId_tag(int id_tag) {
-        this.id_tag = id_tag;
     }
 
     public void setJudul(String judul) {
@@ -119,17 +95,6 @@ public class PostKejadian implements Serializable {
         this.gambar = gambar;
     }
 
-    public void setTag1(String tag1) {
-        this.tag1 = tag1;
-    }
-
-//    public void setTag2(String tag2) {
-//        this.tag2 = tag2;
-//    }
-//
-//    public void setTag3(String tag3) {
-//        this.tag3 = tag3;
-//    }
 
     public int getId_user() {
         return id_user;

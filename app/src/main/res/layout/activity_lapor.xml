@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <ScrollView
@@ -89,93 +90,6 @@
                 android:layout_height="1dp"
                 android:background="#000000" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <ImageButton
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:background="#ffffff"
-                    android:id="@+id/tag"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:paddingTop="11dp"
-                    android:textSize="15dp"
-                    android:background="@drawable/edittext_lost_lapor"
-                    android:text="Tag"/>
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/hashtag" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:textSize="15dp"
-                    android:background="@drawable/edittext_lost_lapor"
-                    android:hint="Tag1"
-                    android:id="@+id/tag1"/>
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:textSize="15dp"
-                    android:background="@drawable/edittext_lost_lapor"
-                    android:hint="Tag2"
-                    android:id="@+id/tag2"/>
-
-            </RelativeLayout>
-
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:textSize="15dp"
-                    android:background="@drawable/edittext_lost_lapor"
-                    android:hint="Tag3"
-                    android:id="@+id/tag3"/>
-
-            </RelativeLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#000000" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -281,7 +195,9 @@
                 android:text="Kirim"
                 android:id="@+id/buttonPost"/>
 
+
         </LinearLayout>
     </ScrollView>
+
 
 </LinearLayout>

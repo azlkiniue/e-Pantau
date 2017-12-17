@@ -28,6 +28,7 @@ import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
+import com.example.android.emergencybutton.base.BaseFragment;
 
 import java.security.MessageDigest;
 
@@ -35,8 +36,9 @@ import java.security.MessageDigest;
  * Created by ASUS on 10/17/2017.
  */
 
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends BaseFragment {
     private DrawerLayout mDrawerLayout;
+    private String title = "Profile";
 
     public static Fragment newInstance(Context context) {
         FragmentTombolDarurat f = new FragmentTombolDarurat();
@@ -51,7 +53,7 @@ public class FragmentProfile extends Fragment {
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_profile, null);
 
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
-        mDrawerLayout = (DrawerLayout) root.findViewById(R.id.drawer_lyt);
+//        mDrawerLayout = (DrawerLayout) root.findViewById(R.id.drawer_lyt);
 
         TextView nama = (TextView) root.findViewById(R.id.user_profile_name);
         ImageView imageProfile = (ImageView) root.findViewById(R.id.user_profile_photo);
@@ -66,9 +68,17 @@ public class FragmentProfile extends Fragment {
         root.findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), EditActivity.class));
+                FragmentEditProfile fragment = new FragmentEditProfile();
+                add(fragment);
+//                startActivity(new Intent(getActivity(), EditActivity.class));
             }
         });
+
+//        FragmentEditProfile fragment = new FragmentEditProfile();
+//        Bundle args = new Bundle();
+//        args.putInt(fragment.MOVIE_ID, selectedMovie.getId());
+//        fragment.setArguments(args);
+//        add(fragment);
 
         nama.setText(user.getNama());
         String q = user.getAlamat();
@@ -84,6 +94,11 @@ public class FragmentProfile extends Fragment {
                 .into(imageProfile);
 
         return root;
+    }
+
+    @Override
+    protected String getTitle() {
+        return title;
     }
 
     public class CircleTransform extends BitmapTransformation {

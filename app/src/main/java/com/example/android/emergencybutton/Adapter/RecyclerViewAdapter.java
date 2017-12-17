@@ -20,6 +20,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
+import com.example.android.emergencybutton.Fragment.FragmentDetailKejadian;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -47,11 +48,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static final int MAX_LINES = 3;
 
     Context context;
+    private OnItemClicked onClick;
 
     List<PostKejadian> dataAdapters;
 
     ImageLoader imageLoader, imageLoader2;
 
+    public interface OnItemClicked {
+        void onItemClick(int position);
+    }
 
     public RecyclerViewAdapter(List<PostKejadian> getDataAdapter, Context context){
 
@@ -71,7 +76,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder Viewholder, int position) {
+    public void onBindViewHolder(ViewHolder Viewholder, final int position) {
 
         PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
 
@@ -124,22 +129,35 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Viewholder.textViewJudul.setText(dataAdapterOBJ.getJudul());
         Viewholder.textViewCaption.setText(dataAdapterOBJ.getCaption());
         Viewholder.textViewTanggalPosting.setText(tanggal);
-        Viewholder.textViewTag1.setText(dataAdapterOBJ.getTag1());
-//        Viewholder.textViewTag2.setText(dataAdapterOBJ.getTag2());
-//        Viewholder.textViewTag3.setText(dataAdapterOBJ.getTag3());
         Viewholder.textViewNama.setText(dataAdapterOBJ.getNama());
         Viewholder.textViewAlamat.setText(getAddressFromLocation(latitude,longitude));
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("bundle", dataAdapterOBJ);
-        final Intent intent = new Intent(context, DetailKejadianActivity.class);
-        intent.putExtras(bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("bundle", dataAdapterOBJ);
+//        final Intent intent = new Intent(context, FragmentDetailKejadian.class);
+//        intent.putExtras(bundle);
+//        Viewholder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                context.startActivity(intent);
+//            }
+//        });
+
         Viewholder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                context.startActivity(intent);
+            public void onClick(View view) {
+                onClick.onItemClick(position);
             }
         });
+
+//        FragmentManager manager = getActivity().getSupportFragmentManager();
+//        manager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+
+    }
+
+    public void setOnClick(OnItemClicked onClick)
+    {
+        this.onClick=onClick;
     }
 
     @Override
@@ -217,6 +235,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView imageViewGambar;
         public ImageView imageViewFoto;
         public RelativeLayout relativeLayout3;
+        public RelativeLayout relativeLayout1;
 
 
         public ViewHolder(View itemView) {
@@ -234,6 +253,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageViewGambar = (ImageView) itemView.findViewById(R.id.imageViewGambar);
             imageViewFoto = (ImageView) itemView.findViewById(R.id.imageViewFoto);
             relativeLayout3 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout3);
+            relativeLayout1 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout1);
         }
     }
 }

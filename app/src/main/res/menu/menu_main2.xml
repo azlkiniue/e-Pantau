@@ -1,11 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.MainActivity">
-    <item android:id="@+id/action_help"
-        android:icon="@drawable/button_help"
+
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/places_ic_search"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:title="action help lapor" />
-
+        android:title="action search" />
 </menu>

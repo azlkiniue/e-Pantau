@@ -8,8 +8,12 @@
     <color name="colorMenu">#CC053B</color>
     <color name="colorBackground">#FFFFFF</color>
 
+    <color name="colorAccents">#FF4081</color>
+
     <!-- Screens background color-->
     <color name="bg_screen">#ffffff</color>
+
+    <color name="showCaseBackground">#b9002153</color>
 
 
     <!-- dots inactive colors -->
@@ -45,4 +49,6 @@
         <item>@color/dot_dark_screen5</item>
         <item>@color/dot_dark_screen6</item>
     </array>
+
+    <color name="custom_showcase_bg">#b9002153</color>
 </resources>

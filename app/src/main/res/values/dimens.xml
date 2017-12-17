@@ -22,4 +22,14 @@
     <dimen name="slide_desc">16dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
 
+    <dimen name="showcase_radius">94dp</dimen>
+    <dimen name="showcase_radius_inner">96dp</dimen>
+    <dimen name="showcase_radius_outer">100dp</dimen>
+    <dimen name="showcase_radius_material">48dip</dimen>
+
+    <dimen name="custom_showcase_width">96dip</dimen>
+    <dimen name="custom_showcase_height">48dip</dimen>
+    <dimen name="touch_button_wobble">12dp</dimen>
+
+
 </resources>

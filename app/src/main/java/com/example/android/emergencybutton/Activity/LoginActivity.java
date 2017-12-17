@@ -3,6 +3,7 @@ package com.example.android.emergencybutton.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.graphics.Target;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -15,11 +16,13 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.bumptech.glide.request.target.ViewTarget;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Controller.VolleySingleton;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
+import com.github.amlcurran.showcaseview.ShowcaseView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,12 +30,11 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity{
 
     EditText editTextUsername, editTextPassword;
     ProgressBar progressBar;
     LinearLayout linearLayout;
-    //ImageView logo_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
