@@ -1,5 +1,6 @@
 package com.example.android.emergencybutton.Fragment;
 
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.example.android.emergencybutton.Adapter.RecyclerViewAdapter;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
 import com.example.android.emergencybutton.base.BaseFragment;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,6 +84,18 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
         layoutManagerOfrecyclerView = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(layoutManagerOfrecyclerView);
+
+        int version = GoogleApiAvailability.GOOGLE_PLAY_SERVICES_VERSION_CODE;
+        try {
+            int v = getActivity().getPackageManager().getPackageInfo("com.google.android.gms", 0 ).versionCode;
+            Log.d("v", "onCreate: " + v);
+            if (v < version){
+                new FragmentDialog().show(getActivity().getSupportFragmentManager(), "test");
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
         JSON_HTTP_CALL();
 

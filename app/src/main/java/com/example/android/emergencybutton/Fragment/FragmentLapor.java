@@ -115,7 +115,7 @@ public class FragmentLapor extends BaseFragment {
 
     private  int countador = 0;
 
-    private Target t1, t2, t3;
+    private Target t1, t2, t3, t4;
 
 
     @Override
@@ -124,10 +124,7 @@ public class FragmentLapor extends BaseFragment {
 
         setHasOptionsMenu(true);
 
-        namaLapor = (TextView) root.findViewById(R.id.namaLapor);
-
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
-        namaLapor.setText(user.getNama());
 
         editTextJudul = (EditText) root.findViewById(R.id.namaKejadian);
         editTextCaption = (EditText) root.findViewById(R.id.caption);
@@ -150,6 +147,7 @@ public class FragmentLapor extends BaseFragment {
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
+                .error(R.drawable.profilUser)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);
@@ -169,9 +167,9 @@ public class FragmentLapor extends BaseFragment {
             @Override
             public void onClick(View view) {
                 postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
-                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-                Log.d("Latitude2", "" + textViewLatitude.getText());
-                Log.d("Longitude2", "" + textViewLongitude.getText());
+//                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
+//                Log.d("Latitude2", "" + textViewLatitude.getText());
+//                Log.d("Longitude2", "" + textViewLongitude.getText());
             }
         });
 
@@ -190,9 +188,9 @@ public class FragmentLapor extends BaseFragment {
 
 
         t1 = new ViewTarget(R.id.buttonPost, getActivity());
-        t2 = new CustomViewTarget(R.id.buttonPhoto, -150, 0, getActivity());
-        t3 = new CustomViewTarget(R.id.caption, -150, -30, getActivity());
-
+        t2 = new CustomViewTarget(R.id.buttonPhoto, -150, 50, getActivity());
+        t3 = new CustomViewTarget(R.id.caption, -140, 0, getActivity());
+        t4 = new CustomViewTarget(R.id.namaKejadian, -110, 0, getActivity());
 
         showcaseView = new ShowcaseView.Builder(getActivity())
                 .setOnClickListener(new View.OnClickListener() {
@@ -201,19 +199,26 @@ public class FragmentLapor extends BaseFragment {
                         switch (countador){
                             case 0:
                                 showcaseView.show();
+                                showcaseView.setShowcase(t3,true);
+                                showcaseView.setContentTitle("Caption");
+                                showcaseView.setContentText("Tuliskan caption sesuai dengan keinginan Anda yang sesuai dengan kondisi kejadian");
+                                showcaseView.setButtonText("Next");
+                                break;
+                            case 1:
+                                showcaseView.show();
                                 showcaseView.setShowcase(t2,true);
                                 showcaseView.setContentTitle("Upload Data");
                                 showcaseView.setContentText("Masukkan data yang benar dan lengkap");
                                 showcaseView.setButtonText("Next");
                                 break;
-                            case 1:
+                            case 2:
                                 showcaseView.show();
                                 showcaseView.setShowcase(t1,true);
                                 showcaseView.setContentTitle("Button Kirim");
                                 showcaseView.setContentText("Tekan button setelah anda yakin semua data terisi dengan benar");
                                 showcaseView.setButtonText("Close");
                                 break;
-                            case 2:
+                            case 3:
                                 showcaseView.hide();
                                 break;
                         }
@@ -580,9 +585,9 @@ public class FragmentLapor extends BaseFragment {
         if (id == R.id.action_help) {
             countador = 0;
             showcaseView.show();
-            showcaseView.setShowcase(t3,true);
-            showcaseView.setContentTitle("Caption");
-            showcaseView.setContentText("Tuliskan caption sesuai dengan keinginan Anda yang sesuai dengan kondisi kejadian");
+            showcaseView.setShowcase(t4,true);
+            showcaseView.setContentTitle("Nama Kejadian");
+            showcaseView.setContentText("Tuliskan nama kejadian yang sesuai dengan kondisi saat ini");
             showcaseView.setButtonText("Next");
             //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
             return true;

@@ -97,14 +97,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.ic_android_black_24dp)
+                .error(R.drawable.photo)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
 
         String foto = dataAdapterOBJ.getFoto();
 
         GlideApp.with(context)
-                .load(Uri.parse(foto)) // add your image url
+                .load(Uri.parse(foto))// add your image url
+                .error(R.drawable.profilUser)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewFoto);
 
@@ -125,6 +126,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         Double latitude = Double.valueOf(dataAdapterOBJ.getLatitude());
         Double longitude = Double.valueOf(dataAdapterOBJ.getLongitude());
+
+        Log.d("lat", "onBindViewHolder: " + latitude +" "+ longitude);
 
         Viewholder.textViewJudul.setText(dataAdapterOBJ.getJudul());
         Viewholder.textViewCaption.setText(dataAdapterOBJ.getCaption());

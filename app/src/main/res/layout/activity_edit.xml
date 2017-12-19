@@ -9,7 +9,6 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,7 +26,9 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/layFoto">
+                android:layout_marginTop="35dp"
+                android:id="@+id/layFoto"
+                android:layout_centerHorizontal="true">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/imageViewFoto"
@@ -49,12 +50,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="220dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:background="#f8f8f9"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:layout_toRightOf="@+id/layFoto"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="50dp"
+                android:layout_below="@+id/layFoto"
                 android:id="@+id/layNIK">
 
                 <EditText
@@ -64,7 +64,7 @@
                     android:paddingLeft="50dp"
                     android:textSize="15dp"
                     android:hint="NIK / Nomor KTP"
-                    android:background="@drawable/edittext_lost"
+                    android:background="@drawable/edittext"
                     android:id="@+id/editTextNIK"/>
                 <ImageView
                     android:layout_width="25dp"
@@ -75,14 +75,12 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="220dp"
+                android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:background="#f8f8f9"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_below="@+id/layNIK"
                 android:layout_marginTop="20dp"
-                android:layout_toRightOf="@+id/layFoto"
-                android:id="@+id/relativeLayout">
+                android:id="@+id/layNama">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -92,78 +90,26 @@
                     android:paddingLeft="50dp"
                     android:textSize="15dp"
                     android:hint="Nama Lengkap"
-                    android:background="@drawable/edittext_lost"
+                    android:background="@drawable/edittext"
                     android:id="@+id/editTextNama"/>
                 <ImageView
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/nama" />
+                    android:src="@drawable/profilUser" />
 
             </RelativeLayout>
+
 
             <RelativeLayout
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:background="#f8f8f9"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="160dp"
-                android:id="@+id/layTelp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:textSize="15dp"
-                    android:hint="Nomor Telepon"
-                    android:background="@drawable/edittext_lost"
-                    android:id="@+id/editTextTelp"/>
-                <ImageView
-                    android:layout_width="@dimen/size_icon"
-                    android:layout_height="@dimen/size_icon"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/ic_call_black_24dp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:background="#f8f8f9"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/layAlamat"
-                android:layout_below="@+id/layTelp">
-
-                <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="50dp"
-                    android:hint="Alamat"
-                    android:textSize="15dp"
-                    android:background="@drawable/edittext_lost"
-                    android:id="@+id/editTextAlamat"/>
-                <ImageView
-                    android:layout_width="@dimen/size_icon"
-                    android:layout_height="@dimen/size_icon"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="15dp"
-                    android:src="@drawable/alamat"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="320dp"
-                android:layout_height="wrap_content"
-                android:background="#f8f8f9"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
                 android:id="@+id/layUsername"
-                android:layout_below="@+id/layAlamat">
+                android:layout_below="@+id/layNama">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -173,7 +119,7 @@
                     android:paddingLeft="50dp"
                     android:hint="Username"
                     android:textSize="15dp"
-                    android:background="@drawable/edittext_lost"
+                    android:background="@drawable/edittext"
                     android:id="@+id/editTextUsername"/>
                 <ImageView
                     android:layout_width="@dimen/size_icon"
@@ -186,7 +132,7 @@
             <RelativeLayout
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"
-                android:background="#f8f8f9"
+                android:background="#ffffff"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:id="@+id/layPassword"
@@ -214,6 +160,60 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@id/layPassword"
+                android:id="@+id/layTelp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:textSize="15dp"
+                    android:hint="Nomor Telepon"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextTelp"/>
+                <ImageView
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_call_black_24dp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/layAlamat"
+                android:layout_below="@+id/layTelp">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="50dp"
+                    android:hint="Alamat"
+                    android:textSize="15dp"
+                    android:background="@drawable/edittext_lost"
+                    android:id="@+id/editTextAlamat"/>
+                <ImageView
+                    android:layout_width="@dimen/size_icon"
+                    android:layout_height="@dimen/size_icon"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/alamat"/>
+            </RelativeLayout>
+
             <Button
                 android:layout_width="300dp"
                 android:layout_height="45dp"
@@ -228,7 +228,7 @@
                 android:textStyle="bold"
                 android:textColor="#ffffff"
                 android:id="@+id/buttonEdit"
-                android:layout_below="@+id/layPassword"/>
+                android:layout_below="@+id/layAlamat"/>
 
         </RelativeLayout>
     </ScrollView>

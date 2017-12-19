@@ -138,6 +138,7 @@ public class FragmentEditProfile extends BaseFragment {
 
         GlideApp.with(getActivity().getApplicationContext())
                 .load(Uri.parse(gambar)) // add your image url
+                .error(R.drawable.profilUser)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new FragmentEditProfile.CircleTransform(getActivity())))// applying the image transformer
                 .into(imageViewFoto);

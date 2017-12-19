@@ -122,6 +122,7 @@ public class MainActivity extends BaseActivity {
 
         GlideApp.with(MainActivity.this)
                 .load(Uri.parse(gambar)) // add your image url
+                .error(R.drawable.profilUser)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(MainActivity.this)))// applying the image transformer
                 .into(imageViewFoto);

@@ -5,7 +5,7 @@
     tools:context=".Activity.MainActivity">
 
     <item android:id="@+id/action_search"
-        android:icon="@drawable/places_ic_search"
+        android:icon="@drawable/search0"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
         android:title="action search" />

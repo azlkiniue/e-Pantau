@@ -134,6 +134,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
+                .error(R.drawable.profilUser)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);

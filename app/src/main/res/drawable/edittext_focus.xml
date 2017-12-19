@@ -6,7 +6,7 @@
         android:backgroundTint="#efeff5"
         />
     <corners
-        android:radius="3dp"
+        android:radius="4dp"
         />
 
 
