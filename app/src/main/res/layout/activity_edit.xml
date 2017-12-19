@@ -97,10 +97,9 @@
                     android:layout_height="25dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/profilUser" />
+                    android:src="@drawable/profil_user" />
 
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:layout_width="320dp"

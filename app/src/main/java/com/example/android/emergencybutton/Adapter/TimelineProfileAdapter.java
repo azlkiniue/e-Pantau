@@ -55,7 +55,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.ic_android_black_24dp)
+                .error(R.drawable.picture_default)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
 
@@ -63,6 +63,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 
         GlideApp.with(context)
                 .load(Uri.parse(foto)) // add your image url
+                .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewFoto);
 
@@ -98,36 +99,4 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
         });
 
     }
-
-    private String getAddressFromLocation(double latitude, double longitude) {
-
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        String alamat = "Alamat tidak tersedia";
-
-        try {
-            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-
-            if (addresses.size() > 0) {
-                Address fetchedAddress = addresses.get(0);
-                StringBuilder strAddress = new StringBuilder();
-                StringBuilder str = new StringBuilder();
-                str.append(fetchedAddress.getThoroughfare()).append(", ").append(fetchedAddress.getSubThoroughfare());
-                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex()-2; i++) {
-                    if (i > 0)
-                        strAddress.append(", ");
-                    strAddress.append(fetchedAddress.getAddressLine(i));
-                }
-                alamat = strAddress.toString();
-            } else {
-                alamat = "Alamat tidak tersedia";
-            }
-            return alamat;
-        } catch (IOException e) {
-            e.printStackTrace();
-            alamat = "Alamat tidak tersedia";
-            //printToast("Could not get address..!");
-        }
-        return alamat;
-    }
-
 }

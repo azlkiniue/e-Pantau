@@ -1,11 +1,9 @@
 package com.example.android.emergencybutton.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +17,6 @@ import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
-import com.example.android.emergencybutton.Activity.ProfileActivity;
-import com.example.android.emergencybutton.Fragment.FragmentDetailKejadian;
-import com.example.android.emergencybutton.Fragment.FragmentProfile;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -97,7 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.photo)
+                .error(R.drawable.picture_default)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
 
@@ -105,7 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         GlideApp.with(context)
                 .load(Uri.parse(foto))// add your image url
-                .error(R.drawable.profilUser)
+                .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewFoto);
 
@@ -127,7 +121,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Double latitude = Double.valueOf(dataAdapterOBJ.getLatitude());
         Double longitude = Double.valueOf(dataAdapterOBJ.getLongitude());
 
-        Log.d("lat", "onBindViewHolder: " + latitude +" "+ longitude);
+        Log.d("lat", "onBindViewHolder: " + getAddressFromLocation(latitude,longitude));
 
         Viewholder.textViewJudul.setText(dataAdapterOBJ.getJudul());
         Viewholder.textViewCaption.setText(dataAdapterOBJ.getCaption());
@@ -183,25 +177,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
 
-    private String getAddressFromLocation(double latitude, double longitude) {
+    public String getAddressFromLocation(double latitude, double longitude) {
 
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         String alamat = "Alamat tidak tersedia";
+
+        Log.d("j", "getAddressFromLocation: " + alamat + latitude + longitude);
 
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
             if (addresses.size() > 0) {
                 Address fetchedAddress = addresses.get(0);
-                StringBuilder strAddress = new StringBuilder();
-                StringBuilder str = new StringBuilder();
-                str.append(fetchedAddress.getThoroughfare()).append(", ").append(fetchedAddress.getSubThoroughfare());
-                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex()-2; i++) {
-                    if (i > 0)
-                        strAddress.append(", ");
-                    strAddress.append(fetchedAddress.getAddressLine(i));
-                }
-                alamat = strAddress.toString();
+
+                alamat = fetchedAddress.getAddressLine(0);
             } else {
                 alamat = "Alamat tidak tersedia";
             }
@@ -209,9 +198,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } catch (IOException e) {
             e.printStackTrace();
             alamat = "Alamat tidak tersedia";
-            //printToast("Could not get address..!");
+            printToast("Could not get address..!");
+            return alamat;
         }
-        return alamat;
+        //printToast("HILIH!");
+        //return alamat;
     }
 
     private void printToast(String message) {

@@ -73,7 +73,7 @@ public class FragmentDetailKejadian extends BaseFragment {
 
         GlideApp.with(this)
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.ic_android_black_24dp)
+                .error(R.drawable.picture_default)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(imageViewGambar);
 
@@ -81,6 +81,7 @@ public class FragmentDetailKejadian extends BaseFragment {
 
         GlideApp.with(this)
                 .load(Uri.parse(foto)) // add your image url
+                .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(imageViewFoto);
 
@@ -130,26 +131,20 @@ public class FragmentDetailKejadian extends BaseFragment {
         return "";
     }
 
+    public String getAddressFromLocation(double latitude, double longitude) {
 
-    private String getAddressFromLocation(double latitude, double longitude) {
-
-        Geocoder geocoder = new Geocoder(getActivity(), Locale.getDefault());
+        Geocoder geocoder = new Geocoder(getContext(), Locale.getDefault());
         String alamat = "Alamat tidak tersedia";
+
+        Log.d("j", "getAddressFromLocation: " + alamat + latitude + longitude);
 
         try {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
             if (addresses.size() > 0) {
                 Address fetchedAddress = addresses.get(0);
-                StringBuilder strAddress = new StringBuilder();
-                StringBuilder str = new StringBuilder();
-                str.append(fetchedAddress.getThoroughfare()).append(", ").append(fetchedAddress.getSubThoroughfare());
-                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex()-2; i++) {
-                    if (i > 0)
-                        strAddress.append(", ");
-                    strAddress.append(fetchedAddress.getAddressLine(i));
-                }
-                alamat = strAddress.toString();
+
+                alamat = fetchedAddress.getAddressLine(0);
             } else {
                 alamat = "Alamat tidak tersedia";
             }
@@ -157,9 +152,11 @@ public class FragmentDetailKejadian extends BaseFragment {
         } catch (IOException e) {
             e.printStackTrace();
             alamat = "Alamat tidak tersedia";
-            //printToast("Could not get address..!");
+            printToast("Could not get address..!");
+            return alamat;
         }
-        return alamat;
+        //printToast("HILIH!");
+        //return alamat;
     }
 
     private void printToast(String message) {

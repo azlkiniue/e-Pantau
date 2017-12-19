@@ -15,12 +15,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="330dp"
             android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="310dp"
+                android:id="@+id/layGradient">
 
                 <ImageView
                     android:id="@+id/header_cover_image"
@@ -42,7 +43,7 @@
                 <LinearLayout
                     android:id="@+id/profile_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
+                    android:layout_height="310dp"
                     android:background="@drawable/gradient_color"
                     android:orientation="vertical"
                     android:elevation="4dp">
@@ -52,7 +53,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="160dp"
+                        android:layout_marginTop="200dp"
                         android:layout_gravity="center"
                         android:textColor="#fff"
                         android:textSize="24sp"
@@ -89,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/relativeLayout2"
-                android:layout_below="@+id/relativeLayout1">
+                android:layout_below="@+id/layGradient">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview2"

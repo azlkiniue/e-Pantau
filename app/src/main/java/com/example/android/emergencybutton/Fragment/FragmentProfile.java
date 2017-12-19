@@ -1,18 +1,15 @@
 package com.example.android.emergencybutton.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +30,6 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
-import com.example.android.emergencybutton.Activity.EditActivity;
 import com.example.android.emergencybutton.Adapter.RecyclerViewAdapter;
 import com.example.android.emergencybutton.Adapter.TimelineProfileAdapter;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
@@ -134,7 +129,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.profilUser)
+                .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);

@@ -14,9 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
@@ -41,7 +39,6 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.android.emergencybutton.Activity.MainActivity;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Controller.VolleySingleton;
@@ -147,7 +144,7 @@ public class FragmentLapor extends BaseFragment {
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
-                .error(R.drawable.profilUser)
+                .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);
@@ -167,9 +164,8 @@ public class FragmentLapor extends BaseFragment {
             @Override
             public void onClick(View view) {
                 postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
-//                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-//                Log.d("Latitude2", "" + textViewLatitude.getText());
-//                Log.d("Longitude2", "" + textViewLongitude.getText());
+                FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
+                add(fragment);
             }
         });
 
@@ -495,8 +491,8 @@ public class FragmentLapor extends BaseFragment {
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).postKejadian(postKejadian);
 
-                                FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
-                                add(fragment);
+//                                FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
+//                                add(fragment);
 
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), "Gagal" + obj.getString("message"), Toast.LENGTH_SHORT).show();
