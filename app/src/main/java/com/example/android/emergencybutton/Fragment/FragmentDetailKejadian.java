@@ -37,7 +37,7 @@ import java.util.Locale;
 
 public class FragmentDetailKejadian extends BaseFragment {
 
-    private String title = "Daerah Rawan";
+    private String title = "Detail Kejadian";
     Toolbar toolbar;
     public String dataPost_ID = "id";
 

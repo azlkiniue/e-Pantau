@@ -72,6 +72,10 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDvX2w43_r-mo02vpbSMbKCsfeSemvhZok" />
 
+        <service
+            android:name=".Controller.GeofenceTransitionsIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

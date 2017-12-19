@@ -10,43 +10,84 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
 import com.example.android.emergencybutton.Activity.EditActivity;
+import com.example.android.emergencybutton.Adapter.RecyclerViewAdapter;
+import com.example.android.emergencybutton.Adapter.TimelineProfileAdapter;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.GlideApp;
+import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
 import com.example.android.emergencybutton.base.BaseFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by ASUS on 10/17/2017.
  */
 
-public class FragmentProfile extends BaseFragment {
-    private DrawerLayout mDrawerLayout;
+public class FragmentProfile extends BaseFragment implements TimelineProfileAdapter.OnItemClickedTimeline{
+
     private String title = "Profile";
 
-    public static Fragment newInstance(Context context) {
-        FragmentTombolDarurat f = new FragmentTombolDarurat();
+    private DrawerLayout mDrawerLayout;
 
-        return f;
-    }
+    List<PostKejadian> ListOfdataAdapter;
+    RecyclerView recyclerView;
+    String HTTP_JSON_URL = "http://192.168.43.251/android_coba/profile.php";
 
-    Toolbar toolbar;
+    String judul = "judul";
+    String gambar = "gambar";
+    String id_post = "id_post";
+    String id_user = "id_user";
+    String caption = "caption";
+    String tanggal_posting = "tanggal_posting";
+    String latitude = "latitude";
+    String longitude = "longitude";
+    String nama = "nama";
+    String foto = "foto";
+
+    JsonArrayRequest RequestOfJSonArray;
+    StringRequest stringRequest;
+    RequestQueue requestQueue;
+    View view;
+    int RecyclerViewItemPosition;
+    RecyclerView.LayoutManager layoutManagerOfrecyclerView;
+    RecyclerViewAdapter recyclerViewadapter;
+    ArrayList<String> ImageTitleNameArrayListForClick;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,12 +99,12 @@ public class FragmentProfile extends BaseFragment {
         TextView nama = (TextView) root.findViewById(R.id.user_profile_name);
         ImageView imageProfile = (ImageView) root.findViewById(R.id.user_profile_photo);
 
-        root.findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), DetailKejadianActivity.class));
-            }
-        });
+//        root.findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(getActivity(), DetailKejadianActivity.class));
+//            }
+//        });
 
         root.findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
             @Override
@@ -74,15 +115,19 @@ public class FragmentProfile extends BaseFragment {
             }
         });
 
-//        FragmentEditProfile fragment = new FragmentEditProfile();
-//        Bundle args = new Bundle();
-//        args.putInt(fragment.MOVIE_ID, selectedMovie.getId());
-//        fragment.setArguments(args);
-//        add(fragment);
+        String getIdUser = getArguments().getString("id_user");
+        String getNama = getArguments().getString("nama");
+        String getFoto = getArguments().getString("foto");
 
-        nama.setText(user.getNama());
+        nama.setText(getNama);
         String q = user.getAlamat();
-        String gambar = user.getFoto();
+        String gambar = getFoto;
+
+        if (!getIdUser.equals(String.valueOf(user.getId()))){
+            LinearLayout linearLayout = (LinearLayout) root.findViewById(R.id.buttonEditProfile);
+            linearLayout.setVisibility(View.GONE);
+        }
+        Log.d("qwe", "onCreate: " + getIdUser + " " + user.getId());
 
         Log.d("user", q);
         Log.d("gambarnya", String.valueOf(user.getFoto()));
@@ -93,12 +138,34 @@ public class FragmentProfile extends BaseFragment {
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);
 
+        ListOfdataAdapter = new ArrayList<>();
+
+        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerview2);
+
+        layoutManagerOfrecyclerView = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(layoutManagerOfrecyclerView);
+
+        JSON_HTTP_CALL(getIdUser);
+
         return root;
     }
 
     @Override
     protected String getTitle() {
         return title;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        PostKejadian dataAdapterOBJ =  ListOfdataAdapter.get(position);
+        FragmentDetailKejadian fragment = new FragmentDetailKejadian();
+        Bundle args = new Bundle();
+        args.putSerializable(fragment.dataPost_ID, dataAdapterOBJ);
+        fragment.setArguments(args);
+        add(fragment);
+//        final Intent intent = new Intent(context, DetailKejadianActivity.class);
+//        intent.putExtras(bundle);
     }
 
     public class CircleTransform extends BitmapTransformation {
@@ -143,5 +210,78 @@ public class FragmentProfile extends BaseFragment {
         public void updateDiskCacheKey(MessageDigest messageDigest) {
 
         }
+    }
+
+
+    public void JSON_HTTP_CALL(final String getIdUser) {
+
+        stringRequest = new StringRequest(Request.Method.POST, HTTP_JSON_URL,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            ParseJSonResponse(jsonArray);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("id", getIdUser);
+                return params;
+            }
+        };
+
+        requestQueue = Volley.newRequestQueue(getActivity());
+
+        requestQueue.add(stringRequest);
+    }
+
+    public void ParseJSonResponse(JSONArray array) {
+
+        for (int i = 0; i < array.length(); i++) {
+
+            PostKejadian GetDataAdapter2 = new PostKejadian();
+
+            JSONObject json = null;
+            try {
+
+                json = array.getJSONObject(i);
+
+                // Adding image title name in array to display on RecyclerView click event.
+
+                GetDataAdapter2.setJudul(json.getString(judul));
+                GetDataAdapter2.setGambar(json.getString(gambar));
+                GetDataAdapter2.setId_post(json.getInt(id_post));
+                GetDataAdapter2.setId_user(json.getInt(id_user));
+                GetDataAdapter2.setCaption(json.getString(caption));
+                GetDataAdapter2.setTanggal_posting(json.getString(tanggal_posting));
+                GetDataAdapter2.setLatitude(json.getString(latitude));
+                GetDataAdapter2.setLongitude(json.getString(longitude));
+                GetDataAdapter2.setNama(json.getString(nama));
+                GetDataAdapter2.setFoto(json.getString(foto));
+
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
+            ListOfdataAdapter.add(GetDataAdapter2);
+        }
+
+        recyclerViewadapter = new TimelineProfileAdapter(ListOfdataAdapter, getActivity());
+        recyclerViewadapter.setOnClickTimeline(this);
+
+        recyclerView.setAdapter(recyclerViewadapter);
     }
 }

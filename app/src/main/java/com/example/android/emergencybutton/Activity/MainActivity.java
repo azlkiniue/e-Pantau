@@ -70,7 +70,7 @@ public class MainActivity extends BaseActivity {
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_lyt);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        User user = SharedPrefManager.getInstance(this).getUser();
+        final User user = SharedPrefManager.getInstance(this).getUser();
         TextView textViewNameNavigation = (TextView) findViewById(R.id.nameNavigation);
         ImageView imageViewFoto = (ImageView) findViewById(R.id.menuProfile);
 
@@ -97,10 +97,15 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.profileLayout).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-//                FragmentProfile profileFragment = new FragmentProfile();
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
-                add(new FragmentProfile(), true);
+                FragmentProfile fragmentProfile = new FragmentProfile();
+
+                Bundle data = new Bundle();//Use bundle to pass data
+                data.putString("id_user", String.valueOf(user.getId()));//put string, int, etc in bundle with a key value
+                data.putString("nama", String.valueOf(user.getNama()));
+                data.putString("foto", String.valueOf(user.getFoto()));
+                fragmentProfile.setArguments(data);//Finally set argument bundle to fragment
+
+                add(fragmentProfile, true);
                 //setTitle("e_Pantau : Profile");
                 mDrawerLayout.closeDrawers();
 //                startActivity(new Intent(MainActivity.this, ProfileActivity.class));

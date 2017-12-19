@@ -490,10 +490,9 @@ public class FragmentLapor extends BaseFragment {
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).postKejadian(postKejadian);
 
-                                //starting the profile activity
-                                //finish();
-//                                startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));
-////                                finish();
+                                FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
+                                add(fragment);
+
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), "Gagal" + obj.getString("message"), Toast.LENGTH_SHORT).show();
                             }

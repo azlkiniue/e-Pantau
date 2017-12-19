@@ -20,7 +20,9 @@ import com.android.volley.toolbox.ImageLoader;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
+import com.example.android.emergencybutton.Activity.ProfileActivity;
 import com.example.android.emergencybutton.Fragment.FragmentDetailKejadian;
+import com.example.android.emergencybutton.Fragment.FragmentProfile;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -49,13 +51,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     Context context;
     private OnItemClicked onClick;
+    protected OnItemClickedTimeline onClickTimeline;
 
     List<PostKejadian> dataAdapters;
 
     ImageLoader imageLoader, imageLoader2;
 
-    public interface OnItemClicked {
+    public interface OnItemClickedTimeline {
         void onItemClick(int position);
+    }
+
+    public void setOnClickTimeline(OnItemClickedTimeline onClickTimeline) {
+        this.onClickTimeline = onClickTimeline;
+    }
+
+
+    public interface OnItemClicked {
+        void onItemClickDetailKejadian(int position);
+        void onItemClickProfile(int position);
     }
 
     public RecyclerViewAdapter(List<PostKejadian> getDataAdapter, Context context){
@@ -79,19 +92,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(ViewHolder Viewholder, final int position) {
 
         PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
-
-//        imageLoader = ImageAdapter.getInstance(context).getImageLoader();
-//
-//        imageLoader.get(dataAdapterOBJ.getGambar(),
-//                ImageLoader.getImageListener(
-//                        Viewholder.imageViewGambar,//Server Image
-//                        R.mipmap.ic_launcher,//Before loading server image the default showing image.
-//                        android.R.drawable.ic_dialog_alert //Error image if requested image dose not found on server.
-//                )
-//        );
-//
-//        Viewholder.imageViewGambar.setImageUrl(dataAdapterOBJ.getGambar(), imageLoader);
-//        Viewholder.imageViewFoto.setImageUrl(dataAdapterOBJ.getFoto(), imageLoader);
 
         String gambar = dataAdapterOBJ.getGambar();
 
@@ -132,26 +132,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Viewholder.textViewNama.setText(dataAdapterOBJ.getNama());
         Viewholder.textViewAlamat.setText(getAddressFromLocation(latitude,longitude));
 
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("bundle", dataAdapterOBJ);
-//        final Intent intent = new Intent(context, FragmentDetailKejadian.class);
-//        intent.putExtras(bundle);
-//        Viewholder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                context.startActivity(intent);
-//            }
-//        });
 
         Viewholder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClick.onItemClick(position);
+                onClick.onItemClickDetailKejadian(position);
             }
         });
 
-//        FragmentManager manager = getActivity().getSupportFragmentManager();
-//        manager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        Viewholder.relativeLayout1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClick.onItemClickProfile(position);
+            }
+        });
 
     }
 
@@ -236,6 +230,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public ImageView imageViewFoto;
         public RelativeLayout relativeLayout3;
         public RelativeLayout relativeLayout1;
+        public RelativeLayout rl_timeline;
 
 
         public ViewHolder(View itemView) {
@@ -254,6 +249,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             imageViewFoto = (ImageView) itemView.findViewById(R.id.imageViewFoto);
             relativeLayout3 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout3);
             relativeLayout1 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout1);
+            rl_timeline = (RelativeLayout) itemView.findViewById(R.id.rl_timeline);
         }
     }
 }

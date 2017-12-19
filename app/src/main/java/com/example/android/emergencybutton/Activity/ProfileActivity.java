@@ -48,12 +48,12 @@ public class ProfileActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, DetailKejadianActivity.class));
-            }
-        });
+//        findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ProfileActivity.this, DetailKejadianActivity.class));
+//            }
+//        });
 
         findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
             @Override

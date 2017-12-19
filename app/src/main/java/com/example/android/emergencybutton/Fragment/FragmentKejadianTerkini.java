@@ -38,7 +38,7 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
 
     RecyclerView recyclerView;
 
-    String HTTP_JSON_URL = "http://192.168.8.102/android_coba/ImageJsonData.php";
+    String HTTP_JSON_URL = "http://192.168.43.251/android_coba/ImageJsonData.php";
 
     String judul = "judul";
     String gambar = "gambar";
@@ -172,7 +172,7 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClickDetailKejadian(int position) {
         PostKejadian dataAdapterOBJ =  ListOfdataAdapter.get(position);
         FragmentDetailKejadian fragment = new FragmentDetailKejadian();
         Bundle args = new Bundle();
@@ -180,4 +180,18 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
         fragment.setArguments(args);
         add(fragment);
     }
+
+    @Override
+    public void onItemClickProfile(int position) {
+        PostKejadian dataAdapterOBJ =  ListOfdataAdapter.get(position);
+        FragmentProfile fragment = new FragmentProfile();
+        Bundle args = new Bundle();
+        //args.putSerializable(fragment.dataPost_ID, dataAdapterOBJ);
+        args.putString("id_user", String.valueOf(dataAdapterOBJ.getId_user()));
+        args.putString("nama", dataAdapterOBJ.getNama());
+        args.putString("foto", dataAdapterOBJ.getFoto());
+        fragment.setArguments(args);
+        add(fragment);
+    }
+
 }
