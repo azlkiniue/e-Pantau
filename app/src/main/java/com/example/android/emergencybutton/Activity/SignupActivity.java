@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -192,21 +194,21 @@ public class SignupActivity extends AppCompatActivity {
                             JSONObject obj = new JSONObject(response);
 
                             //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (!obj.has("status")) {
+                                Toast.makeText(getApplicationContext(), "Anda Berhasil Sign Up", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-                                JSONObject userJson = obj.getJSONObject("user");
+//                                JSONObject userJson = obj.getJSONObject("user");
 
                                 //creating a new user object
                                 User user = new User(
-                                        userJson.getInt("id"),
-                                        userJson.getString("nik"),
-                                        userJson.getString("nama"),
-                                        userJson.getString("alamat"),
-                                        userJson.getString("telepon"),
-                                        userJson.getString("username"),
-                                        userJson.getString("foto")
+                                        obj.getInt("id_user"),
+                                        obj.getString("nik"),
+                                        obj.getString("nama"),
+                                        obj.getString("alamat"),
+                                        obj.getString("telepon"),
+                                        obj.getString("username"),
+                                        obj.getString("foto")
                                 );
 
                                 //storing the user in shared preferences
@@ -217,7 +219,7 @@ public class SignupActivity extends AppCompatActivity {
                                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
 //                                finish();
                             } else {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Anda Gagal Sign Up", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -227,7 +229,8 @@ public class SignupActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                        NetworkResponse networkResponse = error.networkResponse;
+                        Toast.makeText(getApplicationContext(), error.getMessage() + "NULL", Toast.LENGTH_SHORT).show();
                     }
                 }) {
             @Override
@@ -240,6 +243,15 @@ public class SignupActivity extends AppCompatActivity {
                 params.put("username", username);
                 params.put("password", password);
                 return params;
+            }
+
+            @Override
+            public Map < String, String > getHeaders() throws AuthFailureError {
+                HashMap < String, String > headers = new HashMap < String, String > ();
+                String encodedCredentials = Base64.encodeToString("zero:zerozerozero".getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + encodedCredentials);
+
+                return headers;
             }
         };
 

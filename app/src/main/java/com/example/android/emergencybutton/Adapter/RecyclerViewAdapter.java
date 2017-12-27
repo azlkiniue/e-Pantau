@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.android.volley.toolbox.ImageLoader;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -87,7 +88,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
 
-        String gambar = dataAdapterOBJ.getGambar();
+        String gambar = URLs.URL_GAMBAR + dataAdapterOBJ.getGambar();
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
@@ -95,7 +96,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
 
-        String foto = dataAdapterOBJ.getFoto();
+        String foto = URLs.URL_FOTO + dataAdapterOBJ.getFoto();
 
         GlideApp.with(context)
                 .load(Uri.parse(foto))// add your image url

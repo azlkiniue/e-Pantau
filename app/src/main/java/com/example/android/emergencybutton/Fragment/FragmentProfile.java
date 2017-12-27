@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
@@ -48,6 +49,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.android.emergencybutton.Controller.URLs.URL_FOTO;
+import static com.example.android.emergencybutton.Controller.URLs.URL_GAMBAR;
 
 /**
  * Created by ASUS on 10/17/2017.
@@ -116,7 +120,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
         nama.setText(getNama);
         String q = user.getAlamat();
-        String gambar = getFoto;
+        String gambar = URL_FOTO + getFoto;
 
         if (!getIdUser.equals(String.valueOf(user.getId()))){
             LinearLayout linearLayout = (LinearLayout) root.findViewById(R.id.buttonEditProfile);
@@ -130,7 +134,9 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
                 .error(R.drawable.profil_user)
-                .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
+                //.apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
                 .into(imageProfile);
 

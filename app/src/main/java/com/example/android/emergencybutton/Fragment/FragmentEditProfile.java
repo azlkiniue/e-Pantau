@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,6 +74,7 @@ public class FragmentEditProfile extends BaseFragment {
     Button buttonFoto;
     ProgressDialog progressDialog;
     Toolbar toolbar;
+    private int userId;
 
     //Image request code
     private int PICK_IMAGE_REQUEST = 1;
@@ -105,6 +107,7 @@ public class FragmentEditProfile extends BaseFragment {
 
         //getting the current user
         final User user = SharedPrefManager.getInstance(getActivity()).getUser();
+        userId = user.getId();
 
         //Requesting storage permission
         requestStoragePermission();
@@ -130,7 +133,7 @@ public class FragmentEditProfile extends BaseFragment {
         editTextNama.setTextIsSelectable(true);
         editTextNama.setKeyListener(null);
 
-        String gambar = user.getFoto();
+        String gambar = URLs.URL_FOTO + user.getFoto();
 
         GlideApp.with(getActivity().getApplicationContext())
                 .load(Uri.parse(gambar)) // add your image url
@@ -247,9 +250,10 @@ public class FragmentEditProfile extends BaseFragment {
                 String uploadId = UUID.randomUUID().toString();
 
                 //Creating a multi part request
-                new MultipartUploadRequest(getActivity(), uploadId, URLs.UPLOAD_URL)
+                new MultipartUploadRequest(getActivity(), uploadId, URLs.UPLOAD_PROFILE_URL)
                         .addFileToUpload(path, "image") //Adding file
                         .addParameter("name", name) //Adding text parameter to the request
+                        .setBasicAuth("zero", "zerozerozero")
                         .setNotificationConfig(new UploadNotificationConfig())
                         .setMaxRetries(2)
                         .startUpload(); //Starting the upload
@@ -375,7 +379,9 @@ public class FragmentEditProfile extends BaseFragment {
 
         uploadMultipart();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.URL_EDIT,
+        String editUrl = URLs.URL_EDIT + userId;
+
+        StringRequest stringRequest = new StringRequest(Request.Method.PUT, editUrl,
                 new Response.Listener<String>() {
                     //                    mDrawerLayout.setDrawerListener(mDrawerToggle);
                     @Override
@@ -393,21 +399,21 @@ public class FragmentEditProfile extends BaseFragment {
                             JSONObject obj = new JSONObject(response);
 
                             //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (!obj.has("status")) {
+                                Toast.makeText(getActivity().getApplicationContext(), "Data berhasil diubah", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-                                JSONObject userJson = obj.getJSONObject("user");
+//                                JSONObject userJson = obj.getJSONObject("user");
 
                                 //creating a new user object
                                 User user = new User(
-                                        userJson.getInt("id"),
-                                        userJson.getString("nik"),
-                                        userJson.getString("nama"),
-                                        userJson.getString("alamat"),
-                                        userJson.getString("telepon"),
-                                        userJson.getString("username"),
-                                        userJson.getString("foto")
+                                        obj.getInt("id_user"),
+                                        obj.getString("nik"),
+                                        obj.getString("nama"),
+                                        obj.getString("alamat"),
+                                        obj.getString("telepon"),
+                                        obj.getString("username"),
+                                        obj.getString("foto")
                                 );
 
                                 //storing the user in shared preferences
@@ -424,6 +430,11 @@ public class FragmentEditProfile extends BaseFragment {
 //                                startActivity(new Intent(getActivity().getApplicationContext(), ProfileActivity.class));
 
                                 FragmentProfile fragment = new FragmentProfile();
+                                Bundle args = new Bundle();
+                                args.putString("id_user", String.valueOf(obj.getInt("id_user")));
+                                args.putString("nama", obj.getString("nama"));
+                                args.putString("foto", obj.getString("foto"));
+                                fragment.setArguments(args);
                                 add(fragment);
 //                                getActivity().finish();
                             } else {
@@ -440,6 +451,15 @@ public class FragmentEditProfile extends BaseFragment {
                         Toast.makeText(getActivity().getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap < String, String > headers = new HashMap < String, String > ();
+                String encodedCredentials = Base64.encodeToString("zero:zerozerozero".getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + encodedCredentials);
+
+                return headers;
+            }
+
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

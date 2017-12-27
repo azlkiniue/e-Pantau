@@ -30,6 +30,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.android.emergencybutton.Controller.URLs.KEJADIANTERKINI_URL;
+
 /**
  * Created by ASUS on 10/15/2017.
  */
@@ -40,11 +42,9 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
 
     RecyclerView recyclerView;
 
-    String HTTP_JSON_URL = "http://192.168.43.251/android_coba/ImageJsonData.php";
-
     String judul = "judul";
     String gambar = "gambar";
-    String id_post = "id_post";
+    String id_post = "id_post_kejadian";
     String id_user = "id_user";
     String caption = "caption";
     String tanggal_posting = "tanggal_posting";
@@ -56,8 +56,6 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
     JsonArrayRequest RequestOfJSonArray ;
 
     RequestQueue requestQueue ;
-
-    View view ;
 
     int RecyclerViewItemPosition ;
 
@@ -105,7 +103,7 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
 
     public void JSON_HTTP_CALL(){
 
-        RequestOfJSonArray = new JsonArrayRequest(HTTP_JSON_URL,
+        RequestOfJSonArray = new JsonArrayRequest(KEJADIANTERKINI_URL,
 
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -148,8 +146,8 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
                 GetPostKejadian2.setTanggal_posting(json.getString(tanggal_posting));
                 GetPostKejadian2.setLatitude(json.getString(latitude));
                 GetPostKejadian2.setLongitude(json.getString(longitude));
-                GetPostKejadian2.setNama(json.getString(nama));
-                GetPostKejadian2.setFoto(json.getString(foto));
+                GetPostKejadian2.setNama(json.getJSONObject("user").getString(nama));
+                GetPostKejadian2.setFoto(json.getJSONObject("user").getString(foto));
 
             } catch (JSONException e) {
 

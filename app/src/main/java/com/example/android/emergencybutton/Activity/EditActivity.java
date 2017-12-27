@@ -239,7 +239,7 @@ public class EditActivity extends AppCompatActivity {
                 String uploadId = UUID.randomUUID().toString();
 
                 //Creating a multi part request
-                new MultipartUploadRequest(this, uploadId, URLs.UPLOAD_URL)
+                new MultipartUploadRequest(this, uploadId, URLs.UPLOAD_PROFILE_URL)
                         .addFileToUpload(path, "image") //Adding file
                         .addParameter("name", name) //Adding text parameter to the request
                         .setNotificationConfig(new UploadNotificationConfig())

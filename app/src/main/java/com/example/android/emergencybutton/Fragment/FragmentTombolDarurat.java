@@ -250,11 +250,19 @@ public class FragmentTombolDarurat extends BaseFragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
+//                JSONObject location = new JSONObject();
+//                try {
+//                    location.put("longitude", longitude);
+//                    location.put("latitude", latitude);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
                 params.put("longitude", longitude);
                 params.put("latitude", latitude);
-                params.put("id_user", id);
-                params.put("telp", telp);
-                params.put("waktu", waktu);
+//                params.put("message", location.toString());
+//                params.put("waktu", waktu);
+                params.put("name", id);
+                //params.put("telp", telp);
                 return params;
             }
         };
@@ -331,9 +339,12 @@ public class FragmentTombolDarurat extends BaseFragment {
         String body=String.valueOf("Terima kasih. Silahkan tunggu").trim();
 
         NotificationManager notif=(NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notify=new Notification.Builder
-                (getActivity().getApplicationContext()).setContentTitle(tittle).setContentText(body).
-                setContentTitle(subject).setSmallIcon(R.drawable.icon_launcher).build();
+        Notification notify= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            notify = new Notification.Builder
+                    (getActivity().getApplicationContext()).setContentTitle(tittle).setContentText(body).
+                    setContentTitle(subject).setSmallIcon(R.drawable.icon_launcher).build();
+        }
 
         notify.flags |= Notification.FLAG_AUTO_CANCEL;
         notif.notify(0, notify);

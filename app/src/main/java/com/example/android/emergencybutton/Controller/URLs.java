@@ -5,12 +5,16 @@ package com.example.android.emergencybutton.Controller;
  */
 
 public class URLs {
-    private static final String ROOT_URL = "http://192.168.43.251/android_coba/Api.php?apicall=";
-    public static final String URL_REGISTER = ROOT_URL + "signup";
-    public static final String URL_LOGIN= ROOT_URL + "login";
-    public static final String URL_EDIT= ROOT_URL + "edit";
-    public static final String ROOT_URL_LOKASI = "http://192.168.43.251/android_coba/LokasiKejadianAPI.php";
-    public static final String UPLOAD_URL = "http://192.168.43.251/android_coba/upload.php";
-    public static final String POSTKEJADIAN_URL = "http://192.168.43.251/android_coba/PostKejadian.php";
-    public static final String UPLOADKEJADIAN_URL = "http://192.168.43.251/android_coba/uploadKejadian.php";
+    private static final String ROOT_URL = "http://madamita.ml/yusril/epantau/web/";
+    private static final String BASE_USER_URL = ROOT_URL + "api/user";
+    public static final String URL_REGISTER = BASE_USER_URL;
+    public static final String URL_LOGIN = BASE_USER_URL + "/search";
+    public static final String URL_EDIT = BASE_USER_URL + "/";
+    public static final String ROOT_URL_LOKASI = ROOT_URL + "darurat/submit";
+    public static final String UPLOAD_PROFILE_URL = BASE_USER_URL + "/upload";
+    public static final String POSTKEJADIAN_URL = ROOT_URL + "api/post-kejadian";
+    public static final String UPLOADKEJADIAN_URL = POSTKEJADIAN_URL + "/upload";
+    public static final String KEJADIANTERKINI_URL = ROOT_URL + "api/post-kejadian-search/search?PostKejadianSearch[judul]=&expand=user&sort=-tanggal_posting";
+    public static final String URL_GAMBAR = ROOT_URL + "file/post/";
+    public static final String URL_FOTO = ROOT_URL + "file/profile/";
 }

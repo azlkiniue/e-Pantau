@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
@@ -42,6 +43,9 @@ import com.example.android.emergencybutton.base.BaseActivity;
 import com.example.android.emergencybutton.base.BaseFragment;
 
 import java.security.MessageDigest;
+
+import static com.example.android.emergencybutton.Controller.URLs.URL_FOTO;
+import static com.example.android.emergencybutton.Controller.URLs.URL_GAMBAR;
 
 public class MainActivity extends BaseActivity {
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 77;
@@ -112,10 +116,9 @@ public class MainActivity extends BaseActivity {
 
 
 
-        String gambar = user.getFoto();
+        String gambar = URL_FOTO + user.getFoto();
 
         Log.d("gambarnya", String.valueOf(user.getNama()));
-
         GlideApp.with(MainActivity.this)
                 .load(Uri.parse(gambar)) // add your image url
                 .error(R.drawable.profil_user)

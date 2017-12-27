@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -140,7 +141,7 @@ public class FragmentLapor extends BaseFragment {
 
         requestStoragePermission();
 
-        String gambar = user.getFoto();
+        String gambar = URLs.URL_FOTO + user.getFoto();
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
@@ -269,7 +270,7 @@ public class FragmentLapor extends BaseFragment {
     * This is the method responsible for image upload
     * We need the full image path and the name for the image in this method
     * */
-    public void uploadMultipart() {
+    public void uploadMultipart(int idPost) {
         //getting name for the image
         String name = editTextJudul.getText().toString().trim();
 
@@ -286,6 +287,7 @@ public class FragmentLapor extends BaseFragment {
                 new MultipartUploadRequest(getActivity(), uploadId, URLs.UPLOADKEJADIAN_URL)
                         .addFileToUpload(path, "image") //Adding file
                         .addParameter("name", name) //Adding text parameter to the request
+                        .addParameter("id_post", String.valueOf(idPost))
                         .setNotificationConfig(new UploadNotificationConfig())
                         .setMaxRetries(2)
                         .startUpload(); //Starting the upload
@@ -458,9 +460,6 @@ public class FragmentLapor extends BaseFragment {
             return;
         }
 
-
-        uploadMultipart();
-
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.POSTKEJADIAN_URL,
                 new Response.Listener<String>() {
                     @Override
@@ -472,21 +471,23 @@ public class FragmentLapor extends BaseFragment {
                             JSONObject obj = new JSONObject(response);
 
                             //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getActivity().getApplicationContext(), "Berhasil" + obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (!obj.has("status")) {
+                                Toast.makeText(getActivity().getApplicationContext(), "Status telah dibuat", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-                                JSONObject postKejadianJson = obj.getJSONObject("post_kejadian");
+//                                JSONObject postKejadianJson = obj.getJSONObject("post_kejadian");
 
                                 //creating a new user object
                                 PostKejadian postKejadian = new PostKejadian(
-                                        postKejadianJson.getInt("id_post"),
-                                        postKejadianJson.getString("judul"),
-                                        postKejadianJson.getString("caption"),
-                                        postKejadianJson.getString("tanggal_posting"),
-                                        postKejadianJson.getString("latitude"),
-                                        postKejadianJson.getString("longitude")
+                                        obj.getInt("id_post_kejadian"),
+                                        obj.getString("judul"),
+                                        obj.getString("caption"),
+                                        obj.getString("tanggal_posting"),
+                                        obj.getString("latitude"),
+                                        obj.getString("longitude")
                                 );
+
+                                uploadMultipart(obj.getInt("id_post_kejadian"));
 
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).postKejadian(postKejadian);
@@ -495,7 +496,7 @@ public class FragmentLapor extends BaseFragment {
 //                                add(fragment);
 
                             } else {
-                                Toast.makeText(getActivity().getApplicationContext(), "Gagal" + obj.getString("message"), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(), "Gagal" + obj.getString("status"), Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -521,8 +522,10 @@ public class FragmentLapor extends BaseFragment {
                 return params;
             }
         };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(0, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         VolleySingleton.getInstance(getActivity()).addToRequestQueue(stringRequest);
+
     }
 
     public class CircleTransform extends BitmapTransformation {

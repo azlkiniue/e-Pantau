@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Target;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -24,6 +25,7 @@ import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
 import com.github.amlcurran.showcaseview.ShowcaseView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -125,32 +127,34 @@ public class LoginActivity extends AppCompatActivity{
 
 
         //if everything is fine
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.URL_LOGIN,
+        String makeUrl = URLs.URL_LOGIN + "?UserNewSearch[username]=" + username + "&UserNewSearch[password]=" + password;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, makeUrl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
 
                         try {
+                            JSONArray arr = new JSONArray(response);
                             //converting response to json object
-                            JSONObject obj = new JSONObject(response);
+                            JSONObject obj = new JSONObject(arr.get(0).toString());
 
                             //if no error in response
-                            if (!obj.getBoolean("error")) {
-                                Toast.makeText(getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (!obj.has("status")) {
+                                Toast.makeText(getApplicationContext(), "Anda Berhasil Login", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
-                                JSONObject userJson = obj.getJSONObject("user");
+//                                JSONObject userJson = obj.getJSONObject("user");
 //
 //                                //creating a new user object
                                 User user = new User(
-                                        userJson.getInt("id"),
-                                        userJson.getString("nik"),
-                                        userJson.getString("nama"),
-                                        userJson.getString("alamat"),
-                                        userJson.getString("telepon"),
-                                        userJson.getString("username"),
-                                        userJson.getString("foto")
+                                        obj.getInt("id_user"),
+                                        obj.getString("nik"),
+                                        obj.getString("nama"),
+                                        obj.getString("alamat"),
+                                        obj.getString("telepon"),
+                                        obj.getString("username"),
+                                        obj.getString("foto")
                                 );
 //
 //                                //storing the user in shared preferences
@@ -174,12 +178,20 @@ public class LoginActivity extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<>();
+//                params.put("UserNewSearch[username]", username);
+//                params.put("UserNewSearch[password]", password);
+//                return params;
+//            }
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("username", username);
-                params.put("password", password);
-                return params;
+            public Map < String, String > getHeaders() throws AuthFailureError {
+                HashMap < String, String > headers = new HashMap < String, String > ();
+                String encodedCredentials = Base64.encodeToString("zero:zerozerozero".getBytes(), Base64.NO_WRAP);
+                headers.put("Authorization", "Basic " + encodedCredentials);
+
+                return headers;
             }
         };
 
