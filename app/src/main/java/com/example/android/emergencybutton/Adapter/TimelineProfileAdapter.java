@@ -12,6 +12,7 @@ import android.view.View;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
+import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -51,7 +52,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 //        Viewholder.imageViewGambar.setImageUrl(dataAdapterOBJ.getGambar(), imageLoader);
 //        Viewholder.imageViewFoto.setImageUrl(dataAdapterOBJ.getFoto(), imageLoader);
 
-        String gambar = dataAdapterOBJ.getGambar();
+        String gambar = URLs.URL_GAMBAR + dataAdapterOBJ.getGambar();
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
@@ -59,7 +60,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
 
-        String foto = dataAdapterOBJ.getFoto();
+        String foto = URLs.URL_FOTO + dataAdapterOBJ.getFoto();
 
         GlideApp.with(context)
                 .load(Uri.parse(foto)) // add your image url
@@ -67,9 +68,9 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewFoto);
 
-        String str_date= dataAdapterOBJ.getTanggal_posting();
+        String str_date = dataAdapterOBJ.getTanggal_posting();
         DateFormat formatter ;
-        Date date =null;
+        Date date = null;
         formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             date = (Date)formatter.parse(str_date);

@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -30,7 +29,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.signature.ObjectKey;
 import com.example.android.emergencybutton.Adapter.RecyclerViewAdapter;
 import com.example.android.emergencybutton.Adapter.TimelineProfileAdapter;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
@@ -46,12 +44,10 @@ import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import static com.example.android.emergencybutton.Controller.URLs.KEJADIANPROFILE_URL;
 import static com.example.android.emergencybutton.Controller.URLs.URL_FOTO;
-import static com.example.android.emergencybutton.Controller.URLs.URL_GAMBAR;
 
 /**
  * Created by ASUS on 10/17/2017.
@@ -69,7 +65,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
     String judul = "judul";
     String gambar = "gambar";
-    String id_post = "id_post";
+    String id_post = "id_post_kejadian";
     String id_user = "id_user";
     String caption = "caption";
     String tanggal_posting = "tanggal_posting";
@@ -216,8 +212,9 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
 
     public void JSON_HTTP_CALL(final String getIdUser) {
+        String url = KEJADIANPROFILE_URL + "PostKejadianSearch[id_user]=" + getIdUser + "&expand=user&sort=-tanggal_posting";
 
-        stringRequest = new StringRequest(Request.Method.POST, HTTP_JSON_URL,
+        stringRequest = new StringRequest(Request.Method.GET, url,
 
                 new Response.Listener<String>() {
                     @Override
@@ -225,6 +222,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
                         try {
                             JSONArray jsonArray = new JSONArray(response);
+                            Log.d("errorbung", "onResponse: " + response);
                             ParseJSonResponse(jsonArray);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -237,12 +235,12 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
                     }
                 }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", getIdUser);
-                return params;
-            }
+//            @Override
+//            protected Map<String, String> getParams() throws AuthFailureError {
+//                Map<String, String> params = new HashMap<>();
+//                params.put("id", getIdUser);
+//                return params;
+//            }
         };
 
         requestQueue = Volley.newRequestQueue(getActivity());
@@ -271,8 +269,8 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
                 GetDataAdapter2.setTanggal_posting(json.getString(tanggal_posting));
                 GetDataAdapter2.setLatitude(json.getString(latitude));
                 GetDataAdapter2.setLongitude(json.getString(longitude));
-                GetDataAdapter2.setNama(json.getString(nama));
-                GetDataAdapter2.setFoto(json.getString(foto));
+                GetDataAdapter2.setNama(json.getJSONObject("user").getString(nama));
+                GetDataAdapter2.setFoto(json.getJSONObject("user").getString(foto));
 
             } catch (JSONException e) {
 

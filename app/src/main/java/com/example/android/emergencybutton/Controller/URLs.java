@@ -15,6 +15,7 @@ public class URLs {
     public static final String POSTKEJADIAN_URL = ROOT_URL + "api/post-kejadian";
     public static final String UPLOADKEJADIAN_URL = POSTKEJADIAN_URL + "/upload";
     public static final String KEJADIANTERKINI_URL = ROOT_URL + "api/post-kejadian-search/search?PostKejadianSearch[judul]=&expand=user&sort=-tanggal_posting";
+    public static final String KEJADIANPROFILE_URL = ROOT_URL + "api/post-kejadian-search/search?";
     public static final String URL_GAMBAR = ROOT_URL + "file/post/";
     public static final String URL_FOTO = ROOT_URL + "file/profile/";
 }
