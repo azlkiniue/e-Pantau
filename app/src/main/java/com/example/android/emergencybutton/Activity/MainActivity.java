@@ -121,6 +121,7 @@ public class MainActivity extends BaseActivity {
         Log.d("gambarnya", String.valueOf(user.getNama()));
         GlideApp.with(MainActivity.this)
                 .load(Uri.parse(gambar)) // add your image url
+                .placeholder(R.drawable.profil_user)
                 .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(MainActivity.this)))// applying the image transformer

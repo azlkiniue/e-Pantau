@@ -39,6 +39,10 @@ public class AddFragmentHandler {
         fragmentTransaction.commit();
     }
 
+    public void remove(){
+        fragmentManager.popBackStackImmediate();
+    }
+
     @Nullable
     public BaseFragment getCurrentFragment() {
         if (fragmentManager.getBackStackEntryCount() == 0) {

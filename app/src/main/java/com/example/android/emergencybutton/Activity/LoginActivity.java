@@ -1,5 +1,6 @@
 package com.example.android.emergencybutton.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,10 +33,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginActivity extends AppCompatActivity{
+public class LoginActivity extends AppCompatActivity {
 
     EditText editTextUsername, editTextPassword;
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
     LinearLayout linearLayout;
 
     @Override
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity{
             return;
         }
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        progressBar = (ProgressBar) findViewById(R.id.progressBar);
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         //logo_login = (ImageView) findViewById(R.id.logo_login);
@@ -60,10 +61,9 @@ public class LoginActivity extends AppCompatActivity{
         editTextUsername.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasfocus) {
-                if(hasfocus){
+                if (hasfocus) {
                     view.setBackgroundResource(R.drawable.edittext_focus);
-                }
-                else {
+                } else {
                     view.setBackgroundResource(R.drawable.edittext_lost);
                 }
             }
@@ -72,10 +72,9 @@ public class LoginActivity extends AppCompatActivity{
         editTextPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean hasfocus) {
-                if(hasfocus){
+                if (hasfocus) {
                     view.setBackgroundResource(R.drawable.edittext_focus);
-                }
-                else {
+                } else {
                     view.setBackgroundResource(R.drawable.edittext_lost);
                 }
             }
@@ -87,9 +86,13 @@ public class LoginActivity extends AppCompatActivity{
             @Override
             public void onClick(View view) {
 
-                if(editTextUsername.getText().toString().isEmpty() && editTextPassword.getText().toString().isEmpty()){
+                if (editTextUsername.getText().toString().isEmpty() && editTextPassword.getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Tolong isi data !!!!!!!!!!", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
+                    progressDialog = new ProgressDialog(LoginActivity.this);
+                    progressDialog.setTitle("Please Wait");
+                    progressDialog.setMessage("Processing...");
+                    progressDialog.show();
                     userLogin(editTextUsername.getText().toString(), editTextPassword.getText().toString());
                 }
 
@@ -132,7 +135,7 @@ public class LoginActivity extends AppCompatActivity{
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
+//                        progressBar.setVisibility(View.GONE);
 
                         try {
                             JSONArray arr = new JSONArray(response);
@@ -141,7 +144,8 @@ public class LoginActivity extends AppCompatActivity{
 
                             //if no error in response
                             if (!obj.has("status")) {
-                                Toast.makeText(getApplicationContext(), "Anda Berhasil Login", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+//                                Toast.makeText(getApplicationContext(), "Anda Berhasil Login", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
 //                                JSONObject userJson = obj.getJSONObject("user");
@@ -178,7 +182,7 @@ public class LoginActivity extends AppCompatActivity{
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
-//            @Override
+            //            @Override
 //            protected Map<String, String> getParams() throws AuthFailureError {
 //                Map<String, String> params = new HashMap<>();
 //                params.put("UserNewSearch[username]", username);
@@ -186,8 +190,8 @@ public class LoginActivity extends AppCompatActivity{
 //                return params;
 //            }
             @Override
-            public Map < String, String > getHeaders() throws AuthFailureError {
-                HashMap < String, String > headers = new HashMap < String, String > ();
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
                 String encodedCredentials = Base64.encodeToString("zero:zerozerozero".getBytes(), Base64.NO_WRAP);
                 headers.put("Authorization", "Basic " + encodedCredentials);
 

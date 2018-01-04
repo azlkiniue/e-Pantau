@@ -56,6 +56,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 
         GlideApp.with(context)
                 .load(Uri.parse(gambar)) // add your image url
+                .placeholder(R.drawable.picture_default)
                 .error(R.drawable.picture_default)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewGambar);
@@ -64,6 +65,7 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 
         GlideApp.with(context)
                 .load(Uri.parse(foto)) // add your image url
+                .placeholder(R.drawable.profil_user)
                 .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(Viewholder.imageViewFoto);

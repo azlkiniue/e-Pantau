@@ -25,4 +25,8 @@ public abstract class BaseFragment extends Fragment {
     protected void add(BaseFragment fragment) {
         fragmentHandler.add(fragment, false);
     }
+
+    protected void remove(){
+        fragmentHandler.remove();
+    }
 }

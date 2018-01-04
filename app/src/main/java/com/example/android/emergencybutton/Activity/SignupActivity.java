@@ -1,5 +1,6 @@
 package com.example.android.emergencybutton.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -32,14 +33,14 @@ import java.util.Map;
 public class SignupActivity extends AppCompatActivity {
 
     EditText editTextUsername,editTextPassword, editTextNIK, editTextNama, editTextAlamat, editTextTelp ;
-    ProgressBar progressBar;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+//        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //if the user is already logged in we will directly start the profile activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
@@ -60,6 +61,10 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //if user pressed on button register
                 //here we will register the user to server
+                progressDialog = new ProgressDialog(SignupActivity.this);
+                progressDialog.setTitle("Please Wait");
+                progressDialog.setMessage("Processing...");
+                progressDialog.show();
                 registerUser(editTextNIK.getText().toString().trim(),  editTextNama.getText().toString().trim(),  editTextAlamat.getText().toString().trim(),  editTextTelp.getText().toString().trim(), editTextUsername.getText().toString().trim(), editTextPassword.getText().toString().trim());
             }
         });
@@ -187,7 +192,7 @@ public class SignupActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        progressBar.setVisibility(View.GONE);
+//                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -195,7 +200,8 @@ public class SignupActivity extends AppCompatActivity {
 
                             //if no error in response
                             if (!obj.has("status")) {
-                                Toast.makeText(getApplicationContext(), "Anda Berhasil Sign Up", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+//                                Toast.makeText(getApplicationContext(), "Anda Berhasil Sign Up", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
 //                                JSONObject userJson = obj.getJSONObject("user");

@@ -138,6 +138,7 @@ public class FragmentEditProfile extends BaseFragment {
 
         GlideApp.with(getActivity().getApplicationContext())
                 .load(Uri.parse(gambar)) // add your image url
+                .placeholder(R.drawable.profil_user)
                 .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new FragmentEditProfile.CircleTransform(getActivity())))// applying the image transformer
@@ -156,7 +157,10 @@ public class FragmentEditProfile extends BaseFragment {
             public void onClick(View view) {
                 //if user pressed on button register
                 //here we will register the user to server
-
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setTitle("Please Wait");
+                progressDialog.setMessage("Processing...");
+                progressDialog.show();
                 editUser(editTextNIK.getText().toString().trim(), editTextNama.getText().toString().trim(), editTextAlamat.getText().toString().trim(), editTextTelp.getText().toString().trim(), editTextUsername.getText().toString().trim(), editTextPassword.getText().toString().trim());
             }
         });
@@ -389,19 +393,20 @@ public class FragmentEditProfile extends BaseFragment {
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
 
-                        Log.d("URL_EDIT", URLs.URL_EDIT);
+//                        Log.d("URL_EDIT", URLs.URL_EDIT);
 
                         try {
                             //converting response to json object
 
-                            Log.d("URL_EDIT", response);
+//                            Log.d("URL_EDIT", response);
 
 
                             JSONObject obj = new JSONObject(response);
 
                             //if no error in response
                             if (!obj.has("status")) {
-                                Toast.makeText(getActivity().getApplicationContext(), "Data berhasil diubah", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+//                                Toast.makeText(getActivity().getApplicationContext(), "Data berhasil diubah", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
 //                                JSONObject userJson = obj.getJSONObject("user");
@@ -421,7 +426,7 @@ public class FragmentEditProfile extends BaseFragment {
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).userLogin(user);
 
                                 //starting the profile activity
-                                //finish();
+//                                getActivity().finish();
 
 //                                FragmentProfile profileFragment = new FragmentProfile();
 //                                FragmentManager fragmentManager = getSupportFragmentManager();
@@ -436,7 +441,8 @@ public class FragmentEditProfile extends BaseFragment {
                                 args.putString("nama", obj.getString("nama"));
                                 args.putString("foto", obj.getString("foto"));
                                 fragment.setArguments(args);
-                                add(fragment);
+                                //add(fragment);
+                                remove();
 //                                getActivity().finish();
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
@@ -469,6 +475,7 @@ public class FragmentEditProfile extends BaseFragment {
                 params.put("alamat", alamat);
                 params.put("telepon", telepon);
                 params.put("username", username);
+                if (!password.isEmpty())
                 params.put("password", password);
                 return params;
             }

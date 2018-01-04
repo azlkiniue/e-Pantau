@@ -130,7 +130,7 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
                 .error(R.drawable.profil_user)
-                //.apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
+                .placeholder(R.drawable.profil_user)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer

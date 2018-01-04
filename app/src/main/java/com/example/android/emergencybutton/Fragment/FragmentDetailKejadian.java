@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
@@ -69,18 +70,20 @@ public class FragmentDetailKejadian extends BaseFragment {
 
 
 
-        String gambar = dataAdapterOBJ.getGambar();
+        String gambar = URLs.URL_GAMBAR + dataAdapterOBJ.getGambar();
 
         GlideApp.with(this)
                 .load(Uri.parse(gambar)) // add your image url
+                .placeholder(R.drawable.picture_default)
                 .error(R.drawable.picture_default)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(imageViewGambar);
 
-        String foto = dataAdapterOBJ.getFoto();
+        String foto = URLs.URL_FOTO + dataAdapterOBJ.getFoto();
 
         GlideApp.with(this)
                 .load(Uri.parse(foto)) // add your image url
+                .placeholder(R.drawable.profil_user)
                 .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .into(imageViewFoto);
