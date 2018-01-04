@@ -167,6 +167,7 @@ public class FragmentLapor extends BaseFragment {
                 postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
                 FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
                 add(fragment);
+//                getActivity().finish();
             }
         });
 
