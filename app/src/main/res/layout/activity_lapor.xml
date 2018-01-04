@@ -145,10 +145,11 @@
 
                     <TextView
                         android:id="@+id/textViewLokasi"
-                        android:layout_width="340dp"
-                        android:layout_height="45dp"
-                        android:paddingLeft="50dp"
-                        android:paddingTop="11dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="12dp"
+                        android:paddingLeft="20dp"
                         android:text="Lokasi Kejadian"
                         android:textSize="15dp" />
 

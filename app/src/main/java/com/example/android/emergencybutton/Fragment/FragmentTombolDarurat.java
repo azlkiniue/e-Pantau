@@ -329,7 +329,7 @@ public class FragmentTombolDarurat extends BaseFragment {
                 Double.toString(location.getLongitude());
         Log.d("LocationLatitude = " , Double.toString(location.getLatitude()));
         Log.d("LocationLongitude = " , Double.toString(location.getLongitude()));
-        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         Log.d("LocationChanged: ", msg);
     }
 

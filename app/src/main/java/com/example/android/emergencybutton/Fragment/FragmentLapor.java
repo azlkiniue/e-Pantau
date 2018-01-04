@@ -1,6 +1,7 @@
 package com.example.android.emergencybutton.Fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,6 +41,7 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.android.emergencybutton.Activity.LoginActivity;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Controller.VolleySingleton;
@@ -88,6 +90,7 @@ public class FragmentLapor extends BaseFragment {
     boolean check = true;
     ImageButton buttonPhoto;
     ImageView imageProfile;
+    ProgressDialog progressDialog;
 
     double latitudeLoc, longitudeLoc;
     private String title = "Lapor";
@@ -145,6 +148,7 @@ public class FragmentLapor extends BaseFragment {
 
         GlideApp.with(getActivity())
                 .load(Uri.parse(gambar)) // add your image url
+                .placeholder(R.drawable.profil_user)
                 .error(R.drawable.profil_user)
                 .apply(new RequestOptions().signature(new ObjectKey(String.valueOf(System.currentTimeMillis()))))
                 .apply(new RequestOptions().transform(new CircleTransform(getActivity())))// applying the image transformer
@@ -164,6 +168,10 @@ public class FragmentLapor extends BaseFragment {
         root.findViewById(R.id.buttonPost).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setTitle("Please Wait");
+                progressDialog.setMessage("Processing...");
+                progressDialog.show();
                 postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
                 FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
                 add(fragment);
@@ -473,7 +481,8 @@ public class FragmentLapor extends BaseFragment {
 
                             //if no error in response
                             if (!obj.has("status")) {
-                                Toast.makeText(getActivity().getApplicationContext(), "Status telah dibuat", Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+//                                Toast.makeText(getActivity().getApplicationContext(), "Status telah dibuat", Toast.LENGTH_SHORT).show();
 
                                 //getting the user from the response
 //                                JSONObject postKejadianJson = obj.getJSONObject("post_kejadian");
