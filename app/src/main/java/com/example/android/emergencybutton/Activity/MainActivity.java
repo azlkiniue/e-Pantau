@@ -75,7 +75,6 @@ public class MainActivity extends BaseActivity {
         ImageView imageViewFoto = (ImageView) findViewById(R.id.menuProfile);
 
         setupToolbar();
-        //toolbar.setLogo(android.R.drawable.ic_menu_help);
 
         DataModel[] drawerItem = new DataModel[5];
 
@@ -127,10 +126,6 @@ public class MainActivity extends BaseActivity {
                 .apply(new RequestOptions().transform(new CircleTransform(MainActivity.this)))// applying the image transformer
                 .into(imageViewFoto);
 
-//        String number = ("tel:" + numTxt.getText());
-//        Intent mIntent = new Intent(Intent.ACTION_CALL);
-//        mIntent.setData(Uri.parse(number));
-// Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CALL_PHONE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -139,9 +134,7 @@ public class MainActivity extends BaseActivity {
                     new String[]{Manifest.permission.CALL_PHONE},
                     MY_PERMISSIONS_REQUEST_CALL_PHONE);
 
-            // MY_PERMISSIONS_REQUEST_CALL_PHONE is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
+
         } else {
             //You already have permission
             try {
@@ -152,8 +145,7 @@ public class MainActivity extends BaseActivity {
             }
         }
 
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        fragmentManager.beginTransaction().replace(R.id.content_frame, new FragmentTombolDarurat()).commit();
+
         add(new FragmentTombolDarurat(), true);
     }
 
@@ -219,32 +211,6 @@ public class MainActivity extends BaseActivity {
             Log.e("MainActivity", "Error in creating fragment");
         }
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_help) {
-//            //Toast.makeText(MainActivity.this, "Save picture", Toast.LENGTH_LONG).show();
-//            return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        if (mDrawerToggle.onOptionsItemSelected(item)) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
     @Override
     public void setTitle(CharSequence title) {

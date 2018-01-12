@@ -250,19 +250,9 @@ public class FragmentTombolDarurat extends BaseFragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-//                JSONObject location = new JSONObject();
-//                try {
-//                    location.put("longitude", longitude);
-//                    location.put("latitude", latitude);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
                 params.put("longitude", longitude);
                 params.put("latitude", latitude);
-//                params.put("message", location.toString());
-//                params.put("waktu", waktu);
                 params.put("name", id);
-                //params.put("telp", telp);
                 return params;
             }
         };
@@ -295,12 +285,9 @@ public class FragmentTombolDarurat extends BaseFragment {
                         Log.d("waktu", String.valueOf(currentDateandTime));
                         Log.d("Loatitude = " , Double.toString(koor.getLatitude()));
                         Log.d("Longitude = " , Double.toString(koor.getLongitude()));
-//                    Toast.makeText(getActivity(), user.toString(), Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(, "", Toast.LENGTH_SHORT).show();
                         sendLocation(Double.toString(koor.getLongitude()).trim(), Double.toString(koor.getLatitude()).trim(), String.valueOf(user.getId()).trim(), String.valueOf(user.getTelepon()).trim(), currentDateandTime.toString() );
 
 
-//                        koor = new Coordinate((float)location.getLongitude(), (float)location.getLatitude());
                         Log.d("CheckLocation: ", "Success");
                     } else {
                         Log.d("CheckLocation: ", "Failed");
@@ -329,7 +316,6 @@ public class FragmentTombolDarurat extends BaseFragment {
                 Double.toString(location.getLongitude());
         Log.d("LocationLatitude = " , Double.toString(location.getLatitude()));
         Log.d("LocationLongitude = " , Double.toString(location.getLongitude()));
-//        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
         Log.d("LocationChanged: ", msg);
     }
 
@@ -365,7 +351,6 @@ public class FragmentTombolDarurat extends BaseFragment {
                     .setContentTitle("Tombol Darurat")
                     .setContentText("Tekan tombol selama 2 detik" +
                             ", Anda akan terhubung ke command center dan mendapatkan notifikasi")
-//                                    .setShowcaseDrawer(new CustomShowcaseView(getResources()))
                     .setStyle(R.style.showCaseViewStyle)
                     .build();
 

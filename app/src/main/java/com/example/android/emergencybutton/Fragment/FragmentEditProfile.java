@@ -393,23 +393,14 @@ public class FragmentEditProfile extends BaseFragment {
                     public void onResponse(String response) {
                         progressBar.setVisibility(View.GONE);
 
-//                        Log.d("URL_EDIT", URLs.URL_EDIT);
-
                         try {
                             //converting response to json object
-
-//                            Log.d("URL_EDIT", response);
-
 
                             JSONObject obj = new JSONObject(response);
 
                             //if no error in response
                             if (!obj.has("status")) {
                                 progressDialog.dismiss();
-//                                Toast.makeText(getActivity().getApplicationContext(), "Data berhasil diubah", Toast.LENGTH_SHORT).show();
-
-                                //getting the user from the response
-//                                JSONObject userJson = obj.getJSONObject("user");
 
                                 //creating a new user object
                                 User user = new User(
@@ -425,25 +416,13 @@ public class FragmentEditProfile extends BaseFragment {
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getActivity().getApplicationContext()).userLogin(user);
 
-                                //starting the profile activity
-//                                getActivity().finish();
-
-//                                FragmentProfile profileFragment = new FragmentProfile();
-//                                FragmentManager fragmentManager = getSupportFragmentManager();
-//                                fragmentManager.beginTransaction().replace(R.id.content_frame, profileFragment).commit();
-//                                //setTitle("e_Pantau : Profile");
-//                                mDrawerLayout.closeDrawers();
-//                                startActivity(new Intent(getActivity().getApplicationContext(), ProfileActivity.class));
-
                                 FragmentProfile fragment = new FragmentProfile();
                                 Bundle args = new Bundle();
                                 args.putString("id_user", String.valueOf(obj.getInt("id_user")));
                                 args.putString("nama", obj.getString("nama"));
                                 args.putString("foto", obj.getString("foto"));
                                 fragment.setArguments(args);
-                                //add(fragment);
                                 remove();
-//                                getActivity().finish();
                             } else {
                                 Toast.makeText(getActivity().getApplicationContext(), obj.getString("message"), Toast.LENGTH_SHORT).show();
                             }

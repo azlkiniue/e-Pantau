@@ -40,7 +40,6 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-//        progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //if the user is already logged in we will directly start the profile activity
         if (SharedPrefManager.getInstance(this).isLoggedIn()) {
@@ -192,7 +191,6 @@ public class SignupActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -201,10 +199,6 @@ public class SignupActivity extends AppCompatActivity {
                             //if no error in response
                             if (!obj.has("status")) {
                                 progressDialog.dismiss();
-//                                Toast.makeText(getApplicationContext(), "Anda Berhasil Sign Up", Toast.LENGTH_SHORT).show();
-
-                                //getting the user from the response
-//                                JSONObject userJson = obj.getJSONObject("user");
 
                                 //creating a new user object
                                 User user = new User(
@@ -219,11 +213,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-
-                                //starting the profile activity
-                                //finish();
                                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-//                                finish();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Anda Gagal Sign Up", Toast.LENGTH_SHORT).show();
                             }

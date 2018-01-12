@@ -158,19 +158,11 @@ public class FragmentDetailKejadian extends BaseFragment {
             printToast("Could not get address..!");
             return alamat;
         }
-        //printToast("HILIH!");
-        //return alamat;
     }
 
     private void printToast(String message) {
         Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
-//    void setupToolbar(){
-//        toolbar = (Toolbar) root.findViewById(R.id.toolbar);
-//        getActivity().getActionBar().setSupportActionBar(toolbar);
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
-//    }
 
     @Override
     protected String getTitle() {

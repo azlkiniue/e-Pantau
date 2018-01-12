@@ -61,7 +61,6 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
     List<PostKejadian> ListOfdataAdapter;
     RecyclerView recyclerView;
-    String HTTP_JSON_URL = "http://192.168.43.251/android_coba/profile.php";
 
     String judul = "judul";
     String gambar = "gambar";
@@ -89,24 +88,14 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_profile, null);
 
         User user = SharedPrefManager.getInstance(getActivity()).getUser();
-//        mDrawerLayout = (DrawerLayout) root.findViewById(R.id.drawer_lyt);
-
         TextView nama = (TextView) root.findViewById(R.id.user_profile_name);
         ImageView imageProfile = (ImageView) root.findViewById(R.id.user_profile_photo);
-
-//        root.findViewById(R.id.detailKejadian).setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                startActivity(new Intent(getActivity(), DetailKejadianActivity.class));
-//            }
-//        });
 
         root.findViewById(R.id.buttonEditProfile).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 FragmentEditProfile fragment = new FragmentEditProfile();
                 add(fragment);
-//                startActivity(new Intent(getActivity(), EditActivity.class));
             }
         });
 
@@ -162,8 +151,6 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
         args.putSerializable(fragment.dataPost_ID, dataAdapterOBJ);
         fragment.setArguments(args);
         add(fragment);
-//        final Intent intent = new Intent(context, DetailKejadianActivity.class);
-//        intent.putExtras(bundle);
     }
 
     public class CircleTransform extends BitmapTransformation {
@@ -235,12 +222,6 @@ public class FragmentProfile extends BaseFragment implements TimelineProfileAdap
 
                     }
                 }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("id", getIdUser);
-//                return params;
-//            }
         };
 
         requestQueue = Volley.newRequestQueue(getActivity());

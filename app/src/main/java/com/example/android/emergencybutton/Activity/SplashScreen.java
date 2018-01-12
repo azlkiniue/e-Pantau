@@ -18,7 +18,6 @@ public class SplashScreen extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash_screen);
 
-//        Glide.with(this).load("@drawable/logo").into((ImageView) findViewById(R.id.logo_splasScreen));
 
         new  Handler().postDelayed(new Runnable() {
             @Override

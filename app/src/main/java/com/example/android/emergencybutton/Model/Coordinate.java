@@ -8,8 +8,6 @@ public class Coordinate {
     private float longitude, latitude;
 
     public Coordinate() {
-//        this.longitude = longitude;
-//        this.latitude = latitude;
     }
 
     public Coordinate(float longitude, float latitude) {

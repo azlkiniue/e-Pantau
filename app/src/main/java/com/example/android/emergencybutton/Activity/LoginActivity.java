@@ -145,12 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                             //if no error in response
                             if (!obj.has("status")) {
                                 progressDialog.dismiss();
-//                                Toast.makeText(getApplicationContext(), "Anda Berhasil Login", Toast.LENGTH_SHORT).show();
 
-                                //getting the user from the response
-//                                JSONObject userJson = obj.getJSONObject("user");
-//
-//                                //creating a new user object
                                 User user = new User(
                                         obj.getInt("id_user"),
                                         obj.getString("nik"),
@@ -160,12 +155,9 @@ public class LoginActivity extends AppCompatActivity {
                                         obj.getString("username"),
                                         obj.getString("foto")
                                 );
-//
-//                                //storing the user in shared preferences
+
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
 
-                                //starting the profile activity
-                                //finish();
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                 finish();
                             } else {
@@ -182,13 +174,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }) {
-            //            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("UserNewSearch[username]", username);
-//                params.put("UserNewSearch[password]", password);
-//                return params;
-//            }
+
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();

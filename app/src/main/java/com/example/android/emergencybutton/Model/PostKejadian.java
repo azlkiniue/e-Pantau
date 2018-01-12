@@ -20,7 +20,6 @@ public class PostKejadian implements Serializable {
         this.longitude = longitude;
         this.latitude = latitude;
         this.caption = caption;
-//        this.gambar = gambar;
     }
 
     public int getId_post() {

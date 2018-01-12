@@ -198,7 +198,6 @@ public class FragmentKejadianTerkini extends BaseFragment implements RecyclerVie
         PostKejadian dataAdapterOBJ =  ListOfdataAdapter.get(position);
         FragmentProfile fragment = new FragmentProfile();
         Bundle args = new Bundle();
-        //args.putSerializable(fragment.dataPost_ID, dataAdapterOBJ);
         args.putString("id_user", String.valueOf(dataAdapterOBJ.getId_user()));
         args.putString("nama", dataAdapterOBJ.getNama());
         args.putString("foto", dataAdapterOBJ.getFoto());

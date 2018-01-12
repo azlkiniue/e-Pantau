@@ -175,7 +175,6 @@ public class FragmentLapor extends BaseFragment {
                 postKejadian(String.valueOf(user1.getId()).trim(), editTextJudul.getText().toString().trim(),  editTextCaption.getText().toString().trim(), currentDateandTime.toString(), textViewLatitude.getText().toString().trim(), textViewLongitude.getText().toString().trim());
                 FragmentKejadianTerkini fragment = new FragmentKejadianTerkini();
                 add(fragment);
-//                getActivity().finish();
             }
         });
 
@@ -351,7 +350,6 @@ public class FragmentLapor extends BaseFragment {
                 filePath = data.getData();
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
-//                imageViewFoto.setImageBitmap(bitmap);
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -375,11 +373,6 @@ public class FragmentLapor extends BaseFragment {
 
                 textViewLatitude.setText(Double.toString(latitudeLoc));
                 textViewLongitude.setText(Double.toString(longitudeLoc));
-
-//                Log.d("LatLang = " , place.getLatLng().toString());
-//                Log.d("Latitude is", "" + latitudeLoc);
-//                Log.d("Longitude is", "" + longitudeLoc);
-
 
                 // Display attributions if required.
                 CharSequence attributions = place.getAttributions();
@@ -473,7 +466,6 @@ public class FragmentLapor extends BaseFragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-//                        progressBar.setVisibility(View.GONE);
 
                         try {
                             //converting response to json object
@@ -482,10 +474,6 @@ public class FragmentLapor extends BaseFragment {
                             //if no error in response
                             if (!obj.has("status")) {
                                 progressDialog.dismiss();
-//                                Toast.makeText(getActivity().getApplicationContext(), "Status telah dibuat", Toast.LENGTH_SHORT).show();
-
-                                //getting the user from the response
-//                                JSONObject postKejadianJson = obj.getJSONObject("post_kejadian");
 
                                 //creating a new user object
                                 PostKejadian postKejadian = new PostKejadian(

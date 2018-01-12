@@ -26,14 +26,6 @@
         </activity>
         <activity android:name=".Activity.SignupActivity" />
         <activity android:name=".Activity.LoginActivity" />
-        <activity
-            android:name=".Activity.ProfileActivity"
-            android:label="e_Pantau : Profile"
-            android:parentActivityName=".Activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MainActivity" />
-        </activity>
         <activity android:name=".Activity.MainActivity" />
         <activity android:name=".Activity.SplashScreen" />
 
@@ -44,22 +36,6 @@
         <fragment android:name=".FragmentTwo" />
         <fragment android:name=".FragmentThree" />
 
-        <activity
-            android:name=".Activity.DetailKejadianActivity"
-            android:label="e_Pantau : Detail Kejadian"
-            android:parentActivityName=".Activity.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MainActivity" />
-        </activity>
-        <activity
-            android:name=".Activity.EditActivity"
-            android:label="e_Pantau : Edit Profile"
-            android:parentActivityName=".Activity.ProfileActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.MainActivity" />
-        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

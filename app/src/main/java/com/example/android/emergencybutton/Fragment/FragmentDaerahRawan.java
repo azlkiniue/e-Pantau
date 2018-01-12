@@ -139,40 +139,6 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
         return root;
     }
 
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        getActivity().setContentView(R.layout.activity_maps);
-//
-//        ListArea = new ArrayList<>();
-//        ListArea.add(new DaerahRawan(1, -7.311346f, 112.780516f, "Jalan Ir. Soekarno (MERR)"));
-//        ListArea.add(new DaerahRawan(2, -7.265678f, 112.752035f, "Gubeng"));
-//        ListArea.add(new DaerahRawan(3, -7.244938f, 112.727752f, "Jalan Dupak"));
-//        ListArea.add(new DaerahRawan(4, -7.243544f, 112.720932f, "Jalan Demak"));
-//        ListArea.add(new DaerahRawan(5, -7.235295f, 112.609799f, "Benowo"));
-//        ListArea.add(new DaerahRawan(6, -7.276666f, 112.794722f, "Huwalaa"));
-//
-//        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//
-//        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-//        SupportMapFragment mapFragment = (SupportMapFragment) getActivity().getSupportFragmentManager()
-//                .findFragmentById(R.id.map);
-//        mapFragment.getMapAsync(this);
-//
-//        // Empty list for storing geofences.
-//        mGeofenceList = new ArrayList<>();
-//
-//        // Initially set the PendingIntent used in addGeofences() and removeGeofences() to null.
-//        mGeofencePendingIntent = null;
-//
-//        //setButtonsEnabledState();
-//
-//        // Get the geofences used. Geofence data is hard coded in this sample.
-//        populateGeofenceList();
-//
-//        mGeofencingClient = LocationServices.getGeofencingClient(getActivity());
-//    }
-
     @Override
     protected String getTitle() {
         return title;

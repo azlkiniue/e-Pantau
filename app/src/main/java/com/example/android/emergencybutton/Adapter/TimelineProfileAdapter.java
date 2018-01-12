@@ -1,29 +1,22 @@
 package com.example.android.emergencybutton.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
-import com.example.android.emergencybutton.Activity.DetailKejadianActivity;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by nugraha on 12/7/2017.
@@ -39,18 +32,6 @@ public class TimelineProfileAdapter extends RecyclerViewAdapter {
 
         PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
 
-//        imageLoader = ImageAdapter.getInstance(context).getImageLoader();
-//
-//        imageLoader.get(dataAdapterOBJ.getGambar(),
-//                ImageLoader.getImageListener(
-//                        Viewholder.imageViewGambar,//Server Image
-//                        R.mipmap.ic_launcher,//Before loading server image the default showing image.
-//                        android.R.drawable.ic_dialog_alert //Error image if requested image dose not found on server.
-//                )
-//        );
-//
-//        Viewholder.imageViewGambar.setImageUrl(dataAdapterOBJ.getGambar(), imageLoader);
-//        Viewholder.imageViewFoto.setImageUrl(dataAdapterOBJ.getFoto(), imageLoader);
 
         String gambar = URLs.URL_GAMBAR + dataAdapterOBJ.getGambar();
 
