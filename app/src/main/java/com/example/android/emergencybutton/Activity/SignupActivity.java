@@ -1,11 +1,13 @@
 package com.example.android.emergencybutton.Activity;
 
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -20,6 +22,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.android.emergencybutton.Controller.SharedPrefManager;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Controller.VolleySingleton;
+import com.example.android.emergencybutton.Fragment.FragmentDialog;
+import com.example.android.emergencybutton.Fragment.FragmentDialogSignUp;
 import com.example.android.emergencybutton.Fragment.FragmentTombolDarurat;
 import com.example.android.emergencybutton.Model.User;
 import com.example.android.emergencybutton.R;
@@ -30,8 +34,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SignupActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity implements FragmentDialogSignUp.InterfaceCommunicator {
 
+    public static boolean status = false;
+    StringRequest stringRequest;
     EditText editTextUsername,editTextPassword, editTextNIK, editTextNama, editTextAlamat, editTextTelp ;
     ProgressDialog progressDialog;
 
@@ -60,10 +66,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //if user pressed on button register
                 //here we will register the user to server
-                progressDialog = new ProgressDialog(SignupActivity.this);
-                progressDialog.setTitle("Please Wait");
-                progressDialog.setMessage("Processing...");
-                progressDialog.show();
+
                 registerUser(editTextNIK.getText().toString().trim(),  editTextNama.getText().toString().trim(),  editTextAlamat.getText().toString().trim(),  editTextTelp.getText().toString().trim(), editTextUsername.getText().toString().trim(), editTextPassword.getText().toString().trim());
             }
         });
@@ -185,9 +188,10 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
+        FragmentDialogSignUp fragmentDialog = new FragmentDialogSignUp();
+        fragmentDialog.show(getSupportFragmentManager(), "test");
 
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.URL_REGISTER,
+        stringRequest = new StringRequest(Request.Method.POST, URLs.URL_REGISTER,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -214,6 +218,7 @@ public class SignupActivity extends AppCompatActivity {
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
                                 startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+
                             } else {
                                 Toast.makeText(getApplicationContext(), "Anda Gagal Sign Up", Toast.LENGTH_SHORT).show();
                             }
@@ -250,7 +255,17 @@ public class SignupActivity extends AppCompatActivity {
                 return headers;
             }
         };
+    }
 
-        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    @Override
+    public void sendRequestCode(int code) {
+        if (code == 1){
+            progressDialog = new ProgressDialog(SignupActivity.this);
+            progressDialog.setTitle("Please Wait");
+            progressDialog.setMessage("Processing...");
+            progressDialog.show();
+            VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+        }
+        Log.d("tag", "registerUser: " + code);
     }
 }

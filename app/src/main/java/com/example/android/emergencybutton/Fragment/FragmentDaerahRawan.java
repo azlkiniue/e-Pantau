@@ -25,8 +25,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.android.emergencybutton.Adapter.RecyclerViewAdapter;
 import com.example.android.emergencybutton.Controller.GeofenceTransitionsIntentService;
 import com.example.android.emergencybutton.Model.DaerahRawan;
+import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
 import com.example.android.emergencybutton.base.BaseFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -45,7 +52,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static com.example.android.emergencybutton.Controller.URLs.DAERAHRAWAN_URL;
+import static com.example.android.emergencybutton.Controller.URLs.KEJADIANTERKINI_URL;
 
 public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallback, OnCompleteListener<Void> {
 
@@ -57,6 +71,15 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
     private FusedLocationProviderClient mFusedLocationProviderClient;
+    JsonArrayRequest RequestOfJSonArray;
+    RequestQueue requestQueue ;
+
+    String id_daerah_rawan ="id_daerah_rawan";
+    String longitude = "longitude";
+    String latitude = "latitude";
+    String nama = "nama";
+    String warna = "warna";
+    String isi = "isi";
 
     private String title = "Daerah Rawan";
 
@@ -79,7 +102,7 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
     /**
      * The list of geofences used in this sample.
      */
-    private ArrayList<Geofence> mGeofenceList;
+    private ArrayList<Geofence> mGeofenceList = new ArrayList<>();
 
     /**
      * Used when requesting to add or remove geofences.
@@ -92,7 +115,7 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
 
     private PendingGeofenceTask mPendingGeofenceTask = PendingGeofenceTask.NONE;
 
-    ArrayList<DaerahRawan> ListArea;
+    ArrayList<DaerahRawan> ListArea = new ArrayList<>();
 
     @Nullable
     @Override
@@ -102,14 +125,35 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
 
         ViewGroup root = (ViewGroup) inflater.inflate(R.layout.activity_maps, null);
 
-        ListArea = new ArrayList<>();
-        ListArea.add(new DaerahRawan(1, -7.311346f, 112.780516f, "Jalan Ir. Soekarno (MERR)"));
-        ListArea.add(new DaerahRawan(2, -7.265678f, 112.752035f, "Gubeng"));
-        ListArea.add(new DaerahRawan(3, -7.244938f, 112.727752f, "Jalan Dupak"));
-        ListArea.add(new DaerahRawan(4, -7.243544f, 112.720932f, "Jalan Demak"));
-        ListArea.add(new DaerahRawan(5, -7.235295f, 112.609799f, "Benowo"));
-        ListArea.add(new DaerahRawan(6, -7.276666f, 112.794722f, "Huwalaa"));
+//        ListArea = new ArrayList<>();
+//        ListArea.add(new DaerahRawan(1, -7.311346f, 112.780516f, "Jalan Ir. Soekarno (MERR)", "#ce813e"));
+//        ListArea.add(new DaerahRawan(2, -7.265678f, 112.752035f, "Gubeng", "#ce473d"));
+//        ListArea.add(new DaerahRawan(3, -7.244938f, 112.727752f, "Jalan Dupak", "#91ce3d"));
+//        ListArea.add(new DaerahRawan(4, -7.243544f, 112.720932f, "Jalan Demak", "#3dbdce"));
+//        ListArea.add(new DaerahRawan(5, -7.235295f, 112.609799f, "Benowo", "#4d3dce"));
+//        ListArea.add(new DaerahRawan(6, -7.276666f, 112.794722f, "Huwalaa", "#cb3dce"));
 
+        JSON_HTTP_CALL();
+
+
+        return root;
+    }
+
+    @Override
+    protected String getTitle() {
+        return title;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+//        if (checkPermissions()){
+//            addGeofences();
+//        }
+    }
+
+    public void proses(){
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getActivity());
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -135,18 +179,6 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
         populateGeofenceList();
 
         mGeofencingClient = LocationServices.getGeofencingClient(getActivity());
-
-        return root;
-    }
-
-    @Override
-    protected String getTitle() {
-        return title;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
 
         if (checkPermissions()){
             addGeofences();
@@ -262,15 +294,17 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
 
         for (DaerahRawan daerahRawan : ListArea) {
             LatLng coordinate = new LatLng(daerahRawan.getLatitude(), daerahRawan.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(coordinate).title(daerahRawan.getNama()));
+            mMap.addMarker(new MarkerOptions().position(coordinate).title(daerahRawan.getNama()).snippet(daerahRawan.getIsi()));
 
 
             Circle circle = mMap.addCircle(new CircleOptions()
                     .center(new LatLng(daerahRawan.getLatitude(), daerahRawan.getLongitude()))
                     .radius(1000)
-                    .fillColor(ColorUtils.setAlphaComponent(Color.RED, 128))
+                    //.fillColor(ColorUtils.setAlphaComponent(Color.RED, 128))
+                    .fillColor(ColorUtils.setAlphaComponent(Color.parseColor(daerahRawan.getWarna()), 128))
+                    //.fillColor(Color.parseColor(daerahRawan.getWarna()))
                     .strokeWidth(2)
-                    .strokeColor(Color.RED));
+                    .strokeColor(Color.parseColor(daerahRawan.getWarna())));
         }
     }
 
@@ -362,6 +396,59 @@ public class FragmentDaerahRawan extends BaseFragment implements OnMapReadyCallb
             }
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
+
+    public void JSON_HTTP_CALL(){
+
+        RequestOfJSonArray = new JsonArrayRequest(DAERAHRAWAN_URL,
+
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.e("OnResponse", "Success");
+                        ParseJSonResponse(response);
+                        proses();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("OnError", "Error");
+                    }
+                });
+
+        requestQueue = Volley.newRequestQueue(getActivity().getApplicationContext());
+
+        requestQueue.add(RequestOfJSonArray);
+    }
+
+    public void ParseJSonResponse(JSONArray array){
+
+        for(int i = 0; i<array.length(); i++) {
+
+            DaerahRawan daerahRawan = new DaerahRawan();
+
+            JSONObject json = null;
+            try {
+
+                json = array.getJSONObject(i);
+
+                // Adding image title name in array to display on RecyclerView click event.
+
+                daerahRawan.setId(json.getInt(id_daerah_rawan));
+                daerahRawan.setLongitude((float) json.getDouble(longitude));
+                daerahRawan.setLatitude((float) json.getDouble(latitude));
+                daerahRawan.setNama(json.getString(nama));
+                daerahRawan.setWarna(json.getString(warna));
+                daerahRawan.setIsi(json.getString(isi));
+            } catch (JSONException e) {
+
+                e.printStackTrace();
+            }
+            //ListArea = new ArrayList<>();
+            ListArea.add(daerahRawan);
         }
     }
 }

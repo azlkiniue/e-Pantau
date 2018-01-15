@@ -7,13 +7,18 @@ package com.example.android.emergencybutton.Model;
 public class DaerahRawan {
     private int id;
     private float longitude, latitude;
-    private String nama;
+    private String nama, warna, isi;
 
-    public DaerahRawan(int id, float latitude, float longitude, String nama) {
+    public DaerahRawan() {
+    }
+
+    public DaerahRawan(int id, float latitude, float longitude, String nama, String warna, String isi) {
         this.id = id;
         this.longitude = longitude;
         this.latitude = latitude;
         this.nama = nama;
+        this.warna = warna;
+        this.isi = isi;
     }
 
     public int getId() {
@@ -46,5 +51,21 @@ public class DaerahRawan {
 
     public void setNama(String nama) {
         this.nama = nama;
+    }
+
+    public String getWarna() {
+        return warna;
+    }
+
+    public void setWarna(String warna) {
+        this.warna = warna;
+    }
+
+    public String getIsi() {
+        return isi;
+    }
+
+    public void setIsi(String isi) {
+        this.isi = isi;
     }
 }
