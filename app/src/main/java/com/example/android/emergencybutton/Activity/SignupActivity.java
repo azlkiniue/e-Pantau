@@ -200,6 +200,9 @@ public class SignupActivity extends AppCompatActivity implements FragmentDialogS
                             //converting response to json object
                             JSONObject obj = new JSONObject(response);
 
+//                            Toast.makeText(SignupActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+
                             //if no error in response
                             if (!obj.has("status")) {
                                 progressDialog.dismiss();
@@ -214,10 +217,11 @@ public class SignupActivity extends AppCompatActivity implements FragmentDialogS
                                         obj.getString("username"),
                                         obj.getString("foto")
                                 );
-
+//                                Toast.makeText(SignupActivity.this, "Berhasil2", Toast.LENGTH_SHORT).show();
                                 //storing the user in shared preferences
                                 SharedPrefManager.getInstance(getApplicationContext()).userLogin(user);
-                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+//                                Toast.makeText(SignupActivity.this, "Berhasil3", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
 
                             } else {
                                 Toast.makeText(getApplicationContext(), "Anda Gagal Sign Up", Toast.LENGTH_SHORT).show();

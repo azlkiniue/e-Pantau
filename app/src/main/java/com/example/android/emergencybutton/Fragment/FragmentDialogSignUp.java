@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog;
 
 import com.example.android.emergencybutton.Activity.LoginActivity;
 import com.example.android.emergencybutton.Activity.SignupActivity;
+import com.example.android.emergencybutton.R;
 
 public class FragmentDialogSignUp extends DialogFragment {
     public InterfaceCommunicator interfaceCommunicator;
@@ -37,7 +38,7 @@ public class FragmentDialogSignUp extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Perhatian !! Cek nama anda karena nama tidak dapat diubah, apakah anda yakin?")
+            builder.setIcon(R.drawable.ic_warning_black_24dp).setTitle("Perhatian").setMessage("Silahkan Cek data Anda anda kembali, karena nama tidak dapat diubah, Apakah anda yakin?")
                 .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // FIRE ZE MISSILES!
