@@ -4,7 +4,6 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
@@ -18,16 +17,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.example.android.emergencybutton.Controller.SharedPrefManager;
+import com.example.android.emergencybutton.Controller.VolleySingleton;
+import com.example.android.emergencybutton.Fragment.FragmentDialogReport;
 import com.example.android.emergencybutton.GlideApp;
 import com.example.android.emergencybutton.Controller.URLs;
 import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
 
 import org.ocpsoft.prettytime.PrettyTime;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -35,8 +41,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by Juned on 2/8/2017.
@@ -91,7 +99,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(final ViewHolder Viewholder, final int position) {
 
-        PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
+        final PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
 
         String gambar = URLs.URL_GAMBAR + dataAdapterOBJ.getGambar();
 
@@ -147,10 +155,33 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.menu_item_report:
-                              Snackbar snackbar = Snackbar
-                                        .make(view, "Tunggu Sebentar.. Permintaan Anda sedang di proses", Snackbar.LENGTH_LONG);
-
-                                snackbar.show();
+                                StringRequest stringRequest = new StringRequest(Request.Method.POST, URLs.REPORTPOST_URL,
+                                    new Response.Listener<String>() {
+                                        @Override
+                                        public void onResponse(String response) {
+                                            Snackbar snackbar = Snackbar.make(view, "Terimakasih.. Permintaan Anda sedang di proses", Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                        }
+                                    },
+                                    new Response.ErrorListener() {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Snackbar snackbar = Snackbar.make(view, "Tolong coba lagi, error: " + error.getMessage(), Snackbar.LENGTH_LONG);
+                                            snackbar.show();
+                                        }
+                                }) {
+                                    @Override
+                                    protected Map<String, String> getParams() throws AuthFailureError {
+                                        Map<String, String> params = new HashMap<>();
+                                        String currentUserId = String.valueOf(SharedPrefManager.getInstance(context).getUser().getId());
+                                        params.put("id_post", String.valueOf(dataAdapterOBJ.getId_post()));
+                                        params.put("id_terlapor", String.valueOf(dataAdapterOBJ.getId_user()));
+                                        params.put("id_pelapor", currentUserId);
+                                        params.put("isi", "Dilaporkan oleh: " + SharedPrefManager.getInstance(context).getUser().getNama());
+                                        return params;
+                                    }
+                                };
+                                VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);
                                 break;
                             default:
                                 break;

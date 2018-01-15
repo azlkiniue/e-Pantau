@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PROJECT_NEW 2.iml" filepath="$PROJECT_DIR$/PROJECT_NEW 2.iml" />
+      <module fileurl="file://D:\UserData\Documents\GitHub\e-Pantau\PROJECT_NEW 2.iml" filepath="D:\UserData\Documents\GitHub\e-Pantau\PROJECT_NEW 2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/epantau(new).iml" filepath="$PROJECT_DIR$/epantau(new).iml" />
+      <module fileurl="file://$PROJECT_DIR$/e-Pantau.iml" filepath="$PROJECT_DIR$/e-Pantau.iml" />
+      <module fileurl="file://D:\UserData\Documents\GitHub\e-Pantau\epantau(new).iml" filepath="D:\UserData\Documents\GitHub\e-Pantau\epantau(new).iml" />
     </modules>
   </component>
 </project>

@@ -19,4 +19,5 @@ public class URLs {
     public static final String URL_GAMBAR = ROOT_URL + "file/post/";
     public static final String URL_FOTO = ROOT_URL + "file/profile/";
     public static final String DAERAHRAWAN_URL = ROOT_URL + "api/daerah-rawan";
+    public static final String REPORTPOST_URL = ROOT_URL + "api/laporan-user";
 }
