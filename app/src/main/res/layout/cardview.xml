@@ -12,56 +12,81 @@
         android:layout_height="wrap_content"
         android:id="@+id/rl_timeline">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="70dp"
+            android:orientation="horizontal"
+            android:id="@+id/LinearlayoutKejadian">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageViewFoto"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="13dp"
-                android:layout_marginStart="13dp"
-                android:src="@mipmap/ic_launcher" />
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="300dp"
+                android:layout_height="70dp">
 
-            <TextView
-                android:id="@+id/textViewNama"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/imageViewFoto"
-                android:layout_marginLeft="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_toEndOf="@+id/imageViewFoto"
-                android:layout_toRightOf="@+id/imageViewFoto"
-                android:text="JSon Image Name"
-                android:textColor="#000"
-                android:textSize="20dp"
-                android:fontFamily="sans-serif"
-                android:textStyle="bold"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imageViewFoto"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginStart="13dp"
+                    android:src="@mipmap/ic_launcher" />
 
-            <TextView
-                android:id="@+id/textViewTanggalPosting"
+                <TextView
+                    android:id="@+id/textViewNama"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/imageViewFoto"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_toEndOf="@+id/imageViewFoto"
+                    android:layout_toRightOf="@+id/imageViewFoto"
+                    android:text="JSon Image Name"
+                    android:textColor="#000"
+                    android:textSize="20dp"
+                    android:fontFamily="sans-serif"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/textViewTanggalPosting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textViewNama"
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/imageViewFoto"
+                    android:text="Tanggal"
+                    android:fontFamily="sans-serif-condensed"
+                    android:textColor="#999999"
+                    android:layout_marginTop="3dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textViewNama"
-                android:layout_marginLeft="20dp"
-                android:layout_toRightOf="@+id/imageViewFoto"
-                android:text="Tanggal"
-                android:fontFamily="sans-serif-condensed"
-                android:textColor="#999999"
-                android:layout_marginTop="3dp"/>
+                android:layout_height="70dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/txtOptionDigit"
+                    android:paddingRight="20dp"
+                    android:text="&#8942;"
+                    android:textAppearance="?android:textAppearanceLarge"
+                    android:layout_marginTop="10dp"/>
+            </RelativeLayout>
 
-        </RelativeLayout>
+
+        </LinearLayout>
+
+
 
         <RelativeLayout
             android:id="@+id/relativeLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout1"
+            android:layout_below="@+id/LinearlayoutKejadian"
             android:layout_marginTop="20dp">
 
             <com.example.android.emergencybutton.Activity.AspectRatioImageView

@@ -4,9 +4,13 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -23,6 +27,7 @@ import com.example.android.emergencybutton.Model.PostKejadian;
 import com.example.android.emergencybutton.R;
 
 import org.ocpsoft.prettytime.PrettyTime;
+import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.text.DateFormat;
@@ -84,7 +89,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder Viewholder, final int position) {
+    public void onBindViewHolder(final ViewHolder Viewholder, final int position) {
 
         PostKejadian dataAdapterOBJ =  dataAdapters.get(position);
 
@@ -131,6 +136,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Viewholder.textViewTanggalPosting.setText(tanggal);
         Viewholder.textViewNama.setText(dataAdapterOBJ.getNama());
         Viewholder.textViewAlamat.setText(getAddressFromLocation(latitude,longitude));
+
+        Viewholder.txtOptionMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                PopupMenu popupMenu = new PopupMenu(context, Viewholder.txtOptionMenu);
+                popupMenu.inflate(R.menu.option_menu);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.menu_item_report:
+                              Snackbar snackbar = Snackbar
+                                        .make(view, "Tunggu Sebentar.. Permintaan Anda sedang di proses", Snackbar.LENGTH_LONG);
+
+                                snackbar.show();
+                                break;
+                            default:
+                                break;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
 
         Viewholder.relativeLayout3.setOnClickListener(new View.OnClickListener() {
@@ -223,6 +253,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView textViewTag3;
         public TextView textViewNama;
         public TextView textViewAlamat;
+        public TextView txtOptionMenu;
         public ImageView imageViewGambar;
         public ImageView imageViewFoto;
         public RelativeLayout relativeLayout3;
@@ -247,6 +278,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             relativeLayout3 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout3);
             relativeLayout1 = (RelativeLayout) itemView.findViewById(R.id.relativeLayout1);
             rl_timeline = (RelativeLayout) itemView.findViewById(R.id.rl_timeline);
+            txtOptionMenu = (TextView) itemView.findViewById(R.id.txtOptionDigit);
         }
     }
 }
